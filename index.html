@@ -1,221 +1,817 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>e27f0rx — Video Editor</title>
-  <meta name="description" content="Portfolio of Robb (e27f0rx), a video editor based in the Philippines specializing in trailers, documentaries, short-form and long-form content." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>e27f0rx — Video Editor</title>
+<meta name="description" content="Portfolio of Robb (e27f0rx), a video editor based in the Philippines."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0B0F1E;
+  --bg2:#0e1225;
+  --card:#111728;
+  --border:rgba(255,255,255,0.07);
+  --bh:rgba(255,255,255,0.16);
+  --w:#ffffff;
+  --ow:#e8e3dd;
+  --muted:rgba(232,227,221,0.38);
+  --gold:#C8A96E;
+  --gold-dim:rgba(200,169,110,0.10);
+  --gold-glow:rgba(200,169,110,0.22);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --eio:cubic-bezier(0.4,0,0.2,1);
+  --nav:68px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav);font-size:16px}
+body{background:var(--bg);color:var(--ow);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+body.loading{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{cursor:none;background:none;border:none;font-family:inherit}
+::selection{background:var(--gold);color:var(--bg)}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(200,169,110,0.3);border-radius:10px}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .7s var(--ease),visibility .7s;
+}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.ld-wrap{text-align:center}
+.ld-name{
+  font-family:var(--serif);font-size:clamp(2.2rem,6vw,4.5rem);
+  font-weight:300;letter-spacing:.25em;color:var(--w);
+  opacity:0;animation:fuD .9s .15s var(--ease) forwards;
+}
+.ld-tag{
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-top:.5rem;
+  opacity:0;animation:fuD .9s .4s var(--ease) forwards;
+}
+.ld-line{
+  width:180px;height:1px;background:var(--border);
+  margin:1.8rem auto 0;overflow:hidden;position:relative;
+}
+.ld-line span{
+  position:absolute;left:-100%;top:0;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  animation:lswp 1.5s .5s var(--eio) forwards;
+}
+@keyframes fuD{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes lswp{0%{left:-100%}100%{left:200%}}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .25s}
+#cur2{position:fixed;width:34px;height:34px;border:1px solid rgba(200,169,110,.35);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body.ch #cur{width:14px;height:14px;background:var(--w)}
+body.ch #cur2{width:54px;height:54px;border-color:rgba(255,255,255,.18)}
+@media(hover:none){#cur,#cur2{display:none}body{cursor:auto}button{cursor:pointer}}
+
+/* ── NAVBAR ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav);display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 clamp(1.5rem,6vw,5rem);
+  transition:background .4s var(--ease),border-bottom .4s;
+}
+#nav.scrolled{
+  background:rgba(11,15,30,.85);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--border);
+}
+.nl{font-family:var(--serif);font-size:1.4rem;font-weight:400;letter-spacing:.14em;color:var(--w);transition:color .3s}
+.nl:hover{color:var(--gold)}
+.nlinks{display:flex;list-style:none;gap:2.5rem;align-items:center}
+.nlink{font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);position:relative;transition:color .3s}
+.nlink::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}
+.nlink:hover{color:var(--w)}
+.nlink:hover::after{width:100%}
+.ntog{display:none;flex-direction:column;gap:5px;padding:6px;z-index:1001}
+.ntog span{display:block;width:22px;height:1px;background:var(--ow);transition:transform .4s var(--ease),opacity .3s}
+.ntog.open span:first-child{transform:translateY(6px) rotate(45deg)}
+.ntog.open span:last-child{transform:translateY(-6px) rotate(-45deg)}
+
+/* ── HERO ── */
+#hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:center;
+  padding:calc(var(--nav) + 5rem) clamp(1.5rem,9vw,8rem) 6rem;
+  overflow:hidden;
+}
+.hgrid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(200,169,110,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,169,110,.025) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 25%,transparent 100%);
+}
+.hgrid::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 55% at 72% 35%,rgba(200,169,110,.045) 0%,transparent 65%);
+}
+.hcon{position:relative;max-width:800px}
+.hey{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem}
+.htit{
+  font-family:var(--serif);
+  font-size:clamp(4rem,11vw,10rem);
+  font-weight:300;line-height:.93;
+  color:var(--w);margin-bottom:2rem;
+}
+.htit em{font-style:italic;color:var(--gold)}
+.hsub{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3rem}
+.hcta{
+  display:inline-flex;align-items:center;gap:.65rem;
+  font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--w);border:1px solid var(--bh);
+  padding:.9rem 1.9rem;border-radius:100px;
+  transition:background .35s,border-color .35s,transform .4s var(--ease);
+}
+.hcta:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-3px)}
+.hscr{position:absolute;bottom:3rem;right:clamp(1.5rem,5vw,4rem);display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:.3}
+.hscr span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;writing-mode:vertical-lr}
+.sline{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sp 2.2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── SECTIONS ── */
+section{padding:clamp(5rem,10vw,10rem) clamp(1.5rem,9vw,8rem);position:relative}
+section+section{border-top:1px solid var(--border)}
+.slabel{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:3rem}
+.stit{font-family:var(--serif);font-size:clamp(2.8rem,5.5vw,6rem);font-weight:300;line-height:1.02;color:var(--w);margin-bottom:1.5rem}
+.stit em{font-style:italic;color:var(--gold)}
+
+/* ── ABOUT ── */
+.alay{display:grid;grid-template-columns:1fr 1.65fr;gap:clamp(3rem,7vw,8rem);align-items:start;margin-top:1rem}
+.apic{display:flex;flex-direction:column;gap:1.5rem}
+.pframe{
+  aspect-ratio:3/4;max-height:500px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.pframe::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(200,169,110,.07) 0%,transparent 60%)}
+.pfph{display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:.22;color:var(--ow)}
+.pfph svg{width:80px;height:80px}
+.pfph span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase}
+.tags{display:flex;flex-wrap:wrap;gap:.6rem}
+.tag{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,169,110,.22);padding:.32rem .8rem;border-radius:100px;background:var(--gold-dim)}
+.alead{font-size:1.12rem;line-height:1.65;color:var(--ow);margin-bottom:1.2rem}
+.alead strong{color:var(--gold);font-weight:400}
+.abody{font-size:.9rem;color:var(--muted);line-height:1.9;margin-bottom:1rem}
+.abody em{color:var(--gold);font-style:italic}
+.aspecs{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.spec{
+  display:flex;align-items:center;gap:.75rem;
+  font-size:.82rem;color:var(--ow);
+  padding:.75rem 1rem;border:1px solid var(--border);
+  border-radius:4px;background:var(--card);
+  transition:border-color .35s,background .35s;
+}
+.spec:hover{border-color:rgba(200,169,110,.28);background:var(--gold-dim)}
+.sico{color:var(--gold);font-size:.68rem;flex-shrink:0}
+
+/* ── WORKS ── */
+.whead{margin-bottom:3.5rem}
+.wsub{font-size:.86rem;color:var(--muted);margin-top:.4rem}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,370px),1fr));gap:1.4rem}
+.wcard{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;overflow:hidden;cursor:none;
+  opacity:0;transform:translateY(28px);
+  transition:transform .5s var(--ease),border-color .35s,box-shadow .5s,opacity .5s;
+  position:relative;
+}
+.wcard.vis{opacity:1;transform:none}
+.wcard:hover{transform:translateY(-5px);border-color:rgba(200,169,110,.22);box-shadow:0 20px 55px rgba(0,0,0,.45)}
+.wthumb{position:relative;aspect-ratio:16/9;background:#0a0e1c;overflow:hidden}
+.wthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78;transition:opacity .4s,transform .6s var(--ease)}
+.wcard:hover .wthumb img{opacity:.92;transform:scale(1.03)}
+.wthph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0d1a,#111626)}
+.wthph svg{opacity:.12}
+.wplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,15,30,.45);opacity:0;transition:opacity .35s}
+.wcard:hover .wplay{opacity:1}
+.pbtn{
+  width:54px;height:54px;border-radius:50%;
+  background:rgba(200,169,110,.92);
+  display:flex;align-items:center;justify-content:center;
+  transform:scale(.82);transition:transform .35s var(--ease);
+}
+.wcard:hover .pbtn{transform:scale(1)}
+.winfo{padding:1.2rem 1.4rem 1.5rem}
+.wmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem}
+.wcat{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.wyr{font-size:.7rem;color:var(--muted)}
+.wtit{font-family:var(--serif);font-size:1.32rem;font-weight:400;color:var(--w);line-height:1.2;margin-bottom:.35rem}
+.wdesc{font-size:.78rem;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wdel{
+  position:absolute;top:.6rem;right:.6rem;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(200,55,55,.85);color:#fff;
+  font-size:.72rem;display:none;align-items:center;
+  justify-content:center;z-index:10;transition:background .2s;
+}
+.wdel:hover{background:rgba(220,40,40,1)}
+.admin-on .wdel{display:flex}
+.wempty{text-align:center;padding:4rem 0;color:var(--muted);font-size:.9rem}
+.wempty .afw{color:var(--gold);transition:opacity .3s}
+.wempty .afw:hover{opacity:.7}
+
+/* ── ADMIN ── */
+.apanel{
+  background:var(--card);border:1px solid rgba(200,169,110,.18);
+  border-radius:6px;margin-bottom:2.5rem;overflow:hidden;
+}
+.apanel.hidden{display:none}
+.apinn{padding:1.5rem 2rem 2rem}
+.apinn h3{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--w);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.abadge{font-family:var(--sans);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(200,169,110,.28);padding:.18rem .6rem;border-radius:100px}
+.frow{display:flex;gap:.7rem;margin-bottom:.7rem;flex-wrap:wrap}
+.ain{
+  flex:1;min-width:140px;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);color:var(--ow);
+  font-family:var(--sans);font-size:.84rem;
+  padding:.62rem .9rem;border-radius:4px;outline:none;
+  transition:border-color .3s;
+}
+.ain.sh{flex:0 0 90px}
+.ain:focus{border-color:rgba(200,169,110,.45)}
+.ain option{background:var(--bg)}
+.aacts{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.5rem}
+.abtn{
+  font-family:var(--sans);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.62rem 1.3rem;border-radius:100px;border:1px solid var(--gold);
+  color:var(--bg);background:var(--gold);
+  transition:opacity .3s,transform .3s var(--ease);
+}
+.abtn:hover{opacity:.85;transform:translateY(-1px)}
+.abtn.sec{background:transparent;color:var(--gold)}
+.abtn.sec:hover{background:var(--gold-dim)}
+
+/* ── MODAL ── */
+#modal{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+#modal.hidden{display:none}
+.mov{position:absolute;inset:0;background:rgba(5,8,18,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.mcon{
+  position:relative;z-index:1;background:var(--card);
+  border:1px solid var(--border);border-radius:8px;
+  width:100%;max-width:920px;overflow:hidden;
+  animation:min .45s var(--ease);
+}
+@keyframes min{from{opacity:0;transform:scale(.94) translateY(22px)}to{opacity:1;transform:none}}
+.mcls{
+  position:absolute;top:.9rem;right:.9rem;z-index:10;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.1);color:var(--ow);
+  font-size:.82rem;display:flex;align-items:center;justify-content:center;
+  transition:background .3s;
+}
+.mcls:hover{background:rgba(255,255,255,.2)}
+.mvw{position:relative;aspect-ratio:16/9;background:#000}
+.mvw iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.minf{padding:1.2rem 1.7rem 1.7rem}
+.mcat{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.35rem}
+.mtit{font-family:var(--serif);font-size:1.75rem;font-weight:400;color:var(--w);margin-bottom:.45rem}
+.mdesc{font-size:.83rem;color:var(--muted);margin-bottom:.4rem}
+.myr{font-size:.72rem;color:var(--muted)}
+
+/* ── CONTACT ── */
+.clay{display:grid;grid-template-columns:1fr 1.45fr;gap:clamp(3rem,7vw,8rem);align-items:start;margin-top:1rem}
+.csub{font-size:.86rem;color:var(--muted);margin-bottom:2.5rem;margin-top:.7rem}
+.cinfo{display:flex;flex-direction:column;gap:.8rem}
+.csoc{
+  font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);display:inline-flex;align-items:center;gap:.5rem;
+  transition:color .3s;
+}
+.csoc::before{content:'↗';font-size:.68rem;color:var(--gold)}
+.csoc:hover{color:var(--w)}
+.cform{display:flex;flex-direction:column;gap:1.2rem}
+.fg{display:flex;flex-direction:column;gap:.4rem}
+.fg label{font-size:.69rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.fg input,.fg textarea{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:4px;color:var(--ow);font-family:var(--sans);
+  font-size:.9rem;font-weight:300;padding:.82rem 1rem;
+  outline:none;resize:none;width:100%;
+  transition:border-color .35s,background .35s;
+}
+.fg input:focus,.fg textarea:focus{border-color:rgba(200,169,110,.45);background:rgba(200,169,110,.025)}
+.fg input.err,.fg textarea.err{border-color:rgba(220,80,80,.55)}
+.ferr{font-size:.7rem;color:rgba(220,100,100,.9);min-height:1em}
+.sbtn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.7rem;
+  align-self:flex-start;padding:.95rem 2.2rem;border-radius:100px;
+  background:var(--gold);color:var(--bg);font-family:var(--sans);
+  font-size:.74rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  border:1px solid var(--gold);
+  transition:background .35s,transform .4s var(--ease),opacity .3s;
+}
+.sbtn:hover{background:#d4b47a;transform:translateY(-2px)}
+.sbtn:disabled{opacity:.45;transform:none}
+.fstat{font-size:.8rem;padding:.4rem 0;min-height:1.4rem;transition:opacity .4s}
+.fstat.ok{color:#7ec8a0}
+.fstat.bad{color:rgba(220,100,100,.9)}
+
+/* ── FOOTER ── */
+#footer{border-top:1px solid var(--border);padding:2rem clamp(1.5rem,9vw,8rem)}
+.finn{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.flo{font-family:var(--serif);font-size:1.05rem;letter-spacing:.14em;color:var(--muted)}
+.fcp,.fmade{font-size:.72rem;color:var(--muted);letter-spacing:.07em}
+
+/* ── REVEAL ── */
+.ru,.rl,.rr{opacity:0;transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.ru{transform:translateY(36px)}
+.rl{transform:translateX(-28px)}
+.rr{transform:translateX(28px)}
+.ru.vis,.rl.vis,.rr.vis{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .alay{grid-template-columns:1fr}
+  .pframe{max-height:280px;aspect-ratio:4/3}
+  .clay{grid-template-columns:1fr}
+  .aspecs{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .nlinks{
+    position:fixed;top:0;right:-100%;height:100svh;
+    width:70vw;max-width:280px;
+    background:rgba(11,15,30,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    border-left:1px solid var(--border);flex-direction:column;
+    align-items:flex-start;padding:calc(var(--nav) + 2rem) 2.5rem 2rem;
+    gap:2rem;transition:right .5s var(--ease);z-index:999;
+  }
+  .nlinks.open{right:0}
+  .nlink{font-size:.95rem}
+  .ntog{display:flex}
+  .htit{font-size:clamp(3.2rem,15vw,5.5rem)}
+  .sbtn{width:100%}
+  .frow{flex-direction:column}
+  .ain.sh{flex:1}
+  .finn{flex-direction:column;text-align:center}
+}
+@media(max-width:400px){
+  section{padding:4rem 1.25rem}
+  #hero{padding:calc(var(--nav) + 3rem) 1.25rem 5rem}
+}
+</style>
 </head>
 <body>
 
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="loader-inner">
-      <div class="loader-logo">e27f0rx</div>
-      <div class="loader-bar"><span></span></div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-wrap">
+    <div class="ld-name">e27f0rx</div>
+    <div class="ld-tag">Video Editor · Philippines</div>
+    <div class="ld-line"><span></span></div>
+  </div>
+</div>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nl">e27f0rx</a>
+  <button class="ntog" id="ntog" aria-label="Toggle menu"><span></span><span></span></button>
+  <ul class="nlinks" id="nlinks">
+    <li><a href="#about" class="nlink">About</a></li>
+    <li><a href="#works" class="nlink">Works</a></li>
+    <li><a href="#contact" class="nlink">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hgrid"></div>
+  <div class="hcon">
+    <p class="hey ru">Video Editor · Philippines</p>
+    <h1 class="htit ru">
+      Crafting<br/><em>Stories</em><br/>Through<br/>Motion.
+    </h1>
+    <p class="hsub ru">Trailers · Documentary · Short &amp; Long Form</p>
+    <a href="#works" class="hcta ru">
+      View My Work
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hscr">
+    <span>Scroll</span>
+    <div class="sline"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="slabel rl">01 — About</div>
+  <div class="alay">
+    <div class="apic rl">
+      <div class="pframe">
+        <div class="pfph">
+          <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="38" r="24" stroke="white" stroke-width="1"/>
+            <path d="M5 110 Q50 78 95 110" stroke="white" stroke-width="1" fill="none"/>
+          </svg>
+          <span>Your Photo</span>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">3+ Years</span>
+        <span class="tag">Philippines</span>
+        <span class="tag">Self-taught</span>
+      </div>
+    </div>
+    <div class="rr">
+      <h2 class="stit">The Editor<br/><em>Behind the Frame</em></h2>
+      <p class="alead">I'm Robb — known online as <strong>e27f0rx</strong> — a video editor rooted in the Philippines.</p>
+      <p class="abody">With 3+ years of dedicated editing experience, I've developed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p>
+      <p class="abody">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p>
+      <div class="aspecs">
+        <div class="spec"><span class="sico">▸</span> Trailers</div>
+        <div class="spec"><span class="sico">▸</span> Documentary-style</div>
+        <div class="spec"><span class="sico">▸</span> Short-form Content</div>
+        <div class="spec"><span class="sico">▸</span> Long-form Content</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="slabel rl">02 — Works</div>
+
+  <!-- ADMIN PANEL -->
+  <div id="apanel" class="apanel hidden">
+    <div class="apinn">
+      <h3>Manage Works <span class="abadge">Admin Only</span></h3>
+      <div class="frow">
+        <input type="text" id="wTitle" placeholder="Project Title" class="ain"/>
+        <select id="wCat" class="ain" style="flex:0 0 150px">
+          <option value="Trailer">Trailer</option>
+          <option value="Documentary">Documentary</option>
+          <option value="Short-form">Short-form</option>
+          <option value="Long-form">Long-form</option>
+        </select>
+      </div>
+      <div class="frow">
+        <input type="text" id="wUrl" placeholder="YouTube / Vimeo / TikTok URL" class="ain"/>
+      </div>
+      <div class="frow">
+        <input type="text" id="wDesc" placeholder="Brief description (optional)" class="ain"/>
+        <input type="text" id="wYr" placeholder="Year" class="ain sh"/>
+      </div>
+      <div class="aacts">
+        <button class="abtn" id="addWBtn">+ Add Project</button>
+        <button class="abtn sec" id="expBtn">Export JSON</button>
+        <button class="abtn sec" id="impBtn">Import JSON</button>
+        <input type="file" id="impFile" accept=".json" style="display:none"/>
+      </div>
     </div>
   </div>
 
-  <!-- CURSOR -->
-  <div id="cursor"></div>
-  <div id="cursor-follower"></div>
+  <div class="whead ru">
+    <h2 class="stit">Selected<br/><em>Projects</em></h2>
+    <p class="wsub">A curated showcase of edits across formats and genres.</p>
+  </div>
 
-  <!-- NAVBAR -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo">e27f0rx</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#works" class="nav-link">Works</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="wgrid" id="wgrid"></div>
+  <div class="wempty hidden" id="wempty">
+    <p>No projects yet. <span class="afw" id="afw">Add your first work →</span></p>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow reveal-up">Video Editor · Philippines</p>
-      <h1 class="hero-title reveal-up">
-        <span>Crafting</span><br/>
-        <em>Stories</em><br/>
-        <span>Through</span><br/>
-        <span>Motion.</span>
-      </h1>
-      <p class="hero-sub reveal-up">Trailers · Documentaries · Short & Long Form</p>
-      <a href="#works" class="hero-cta reveal-up">View My Work <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<!-- VIDEO MODAL -->
+<div id="modal" class="hidden">
+  <div class="mov" id="mov"></div>
+  <div class="mcon">
+    <button class="mcls" id="mcls">✕</button>
+    <div class="mvw" id="mvw"></div>
+    <div class="minf">
+      <span class="mcat" id="mcat"></span>
+      <h3 class="mtit" id="mtit"></h3>
+      <p class="mdesc" id="mdesc"></p>
+      <span class="myr" id="myr"></span>
     </div>
-    <div class="hero-scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+  </div>
+</div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-label reveal-left">01 — About</div>
-    <div class="about-layout">
-      <div class="about-portrait reveal-left">
-        <div class="portrait-frame">
-          <div class="portrait-placeholder">
-            <svg viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="60" cy="45" r="28" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <path d="M10 130 Q60 95 110 130" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
-            </svg>
-            <span>Photo</span>
-          </div>
-        </div>
-        <div class="about-tags">
-          <span class="tag">3+ Years</span>
-          <span class="tag">Philippines</span>
-          <span class="tag">Editor</span>
-        </div>
-      </div>
-      <div class="about-text reveal-right">
-        <h2 class="section-title">The Editor<br/><em>Behind the Frame</em></h2>
-        <p class="about-lead">I'm Robb — known online as <strong>e27f0rx</strong> — a self-taught video editor rooted in the Philippines.</p>
-        <p class="about-body">With over 3 years of dedicated editing experience, I've honed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p>
-        <p class="about-body">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p>
-        <div class="about-specialties">
-          <div class="specialty">
-            <span class="spec-icon">▸</span>
-            <span>Trailers</span>
-          </div>
-          <div class="specialty">
-            <span class="spec-icon">▸</span>
-            <span>Documentary-style</span>
-          </div>
-          <div class="specialty">
-            <span class="spec-icon">▸</span>
-            <span>Short-form Content</span>
-          </div>
-          <div class="specialty">
-            <span class="spec-icon">▸</span>
-            <span>Long-form Content</span>
-          </div>
-        </div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="slabel rl">03 — Contact</div>
+  <div class="clay">
+    <div class="rl">
+      <h2 class="stit">Let's Make<br/><em>Something</em><br/>Together.</h2>
+      <p class="csub">Have a project in mind? Let's talk about it.</p>
+      <div class="cinfo">
+        <a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="csoc">YouTube</a>
+        <a href="#" class="csoc">Instagram</a>
       </div>
     </div>
-  </section>
-
-  <!-- WORKS -->
-  <section id="works">
-    <div class="section-label reveal-left">02 — Works</div>
-    <div class="works-header reveal-up">
-      <h2 class="section-title">Selected<br/><em>Projects</em></h2>
-      <p class="works-sub">A curated showcase of edits across formats and genres.</p>
-    </div>
-
-    <!-- ADMIN PANEL (hidden by default, toggle via URL hash) -->
-    <div id="adminPanel" class="admin-panel hidden">
-      <div class="admin-panel-inner">
-        <h3>Manage Works <span class="admin-badge">Admin</span></h3>
-        <div class="admin-form">
-          <div class="form-row">
-            <input type="text" id="workTitle" placeholder="Project Title" class="admin-input" />
-            <select id="workCategory" class="admin-input">
-              <option value="Trailer">Trailer</option>
-              <option value="Documentary">Documentary</option>
-              <option value="Short-form">Short-form</option>
-              <option value="Long-form">Long-form</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <input type="text" id="workUrl" placeholder="YouTube / Vimeo URL or embed link" class="admin-input" />
-          </div>
-          <div class="form-row">
-            <input type="text" id="workDesc" placeholder="Brief description (optional)" class="admin-input" />
-            <input type="text" id="workYear" placeholder="Year (e.g. 2024)" class="admin-input short" />
-          </div>
-          <div class="admin-actions">
-            <button class="admin-btn" id="addWorkBtn">+ Add Project</button>
-            <button class="admin-btn secondary" id="exportWorksBtn">Export JSON</button>
-            <button class="admin-btn secondary" id="importWorksBtn">Import JSON</button>
-            <input type="file" id="importFile" accept=".json" style="display:none"/>
-          </div>
+    <div class="rr">
+      <form id="cform" class="cform" novalidate>
+        <div class="fg">
+          <label for="fn">Full Name</label>
+          <input type="text" id="fn" name="name" placeholder="Your full name" required autocomplete="name"/>
+          <span class="ferr" id="fne"></span>
         </div>
-      </div>
-    </div>
-
-    <div class="works-grid" id="worksGrid">
-      <!-- Works are rendered by JS -->
-    </div>
-
-    <div class="works-empty hidden" id="worksEmpty">
-      <p>No projects yet. <span id="addFirstWork">Add your first work →</span></p>
-    </div>
-
-    <!-- VIDEO MODAL -->
-    <div id="videoModal" class="modal hidden">
-      <div class="modal-overlay" id="modalOverlay"></div>
-      <div class="modal-content">
-        <button class="modal-close" id="modalClose">✕</button>
-        <div class="modal-video-wrap" id="modalVideoWrap"></div>
-        <div class="modal-info">
-          <span class="modal-category" id="modalCategory"></span>
-          <h3 class="modal-title" id="modalTitle"></h3>
-          <p class="modal-desc" id="modalDesc"></p>
-          <span class="modal-year" id="modalYear"></span>
+        <div class="fg">
+          <label for="fe">Email Address</label>
+          <input type="email" id="fe" name="email" placeholder="your@email.com" required autocomplete="email"/>
+          <span class="ferr" id="fee"></span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-label reveal-left">03 — Contact</div>
-    <div class="contact-layout">
-      <div class="contact-left reveal-left">
-        <h2 class="section-title">Let's Make<br/><em>Something</em><br/>Together.</h2>
-        <p class="contact-sub">Have a project in mind? Let's talk about it.</p>
-        <div class="contact-info">
-          <a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="contact-social">YouTube</a>
-          <a href="#" class="contact-social">Instagram</a>
+        <div class="fg">
+          <label for="fm">Message</label>
+          <textarea id="fm" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+          <span class="ferr" id="fme"></span>
         </div>
-      </div>
-      <div class="contact-right reveal-right">
-        <form id="contactForm" class="contact-form" novalidate>
-          <div class="field-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Your full name" required autocomplete="name"/>
-            <span class="field-error" id="nameError"></span>
-          </div>
-          <div class="field-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email"/>
-            <span class="field-error" id="emailError"></span>
-          </div>
-          <div class="field-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
-            <span class="field-error" id="messageError"></span>
-          </div>
-          <button type="submit" class="submit-btn" id="submitBtn">
-            <span class="btn-text">Send Message</span>
-            <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l12-5-5 12-2-5-5-2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span>
-          </button>
-          <div class="form-status" id="formStatus"></div>
-        </form>
-      </div>
+        <button type="submit" class="sbtn" id="sbtn">
+          <span class="bt">Send Message</span>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1.5 7.5l12-5-5 11.5-2-4.5-5-2z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="fstat" id="fstat"></div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <div class="footer-inner">
-      <span class="footer-logo">e27f0rx</span>
-      <span class="footer-copy">© <span id="footerYear"></span> All rights reserved.</span>
-      <span class="footer-made">Crafted with precision.</span>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="finn">
+    <span class="flo">e27f0rx</span>
+    <span class="fcp">© <span id="fyr"></span> All rights reserved.</span>
+    <span class="fmade">Crafted with precision.</span>
+  </div>
+</footer>
 
-  <script src="js/works-data.js"></script>
-  <script src="js/main.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ── LOADER ── */
+const loader=document.getElementById('loader');
+document.body.classList.add('loading');
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    loader.classList.add('done');
+    document.body.classList.remove('loading');
+    document.querySelectorAll('#hero .ru').forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('vis'),i*140+50);
+    });
+  },2000);
+});
+
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let cx=0,cy=0,fx=0,fy=0;
+if(window.matchMedia('(hover:hover)').matches){
+  document.addEventListener('mousemove',e=>{
+    cx=e.clientX;cy=e.clientY;
+    cur.style.left=cx+'px';cur.style.top=cy+'px';
+  });
+  (function loop(){
+    fx+=(cx-fx)*.11;fy+=(cy-fy)*.11;
+    cur2.style.left=fx+'px';cur2.style.top=fy+'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,[data-h]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+  });
+}
+
+/* ── NAV ── */
+const nav=document.getElementById('nav');
+const ntog=document.getElementById('ntog');
+const nlinks=document.getElementById('nlinks');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+ntog.addEventListener('click',()=>{
+  const o=nlinks.classList.toggle('open');
+  ntog.classList.toggle('open',o);
+  document.body.style.overflow=o?'hidden':'';
+});
+nlinks.querySelectorAll('.nlink').forEach(a=>a.addEventListener('click',()=>{
+  nlinks.classList.remove('open');ntog.classList.remove('open');document.body.style.overflow='';
+}));
+
+/* ── REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.ru:not(#hero .ru),.rl,.rr').forEach(el=>obs.observe(el));
+
+/* ── FOOTER YEAR ── */
+const fyr=document.getElementById('fyr');if(fyr)fyr.textContent=new Date().getFullYear();
+
+/* ── WORKS ── */
+const SK='e27f0rx_works';
+let isAdmin=false;
+
+function load(){
+  try{const d=localStorage.getItem(SK);if(d)return JSON.parse(d);}catch{}
+  return[];
+}
+function save(d){localStorage.setItem(SK,JSON.stringify(d));}
+
+function embedUrl(url){
+  if(!url)return null;
+  url=url.trim();
+  if(url.includes('/embed/'))return url;
+  const yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(yt)return`https://www.youtube.com/embed/${yt[1]}?rel=0&modestbranding=1&autoplay=1`;
+  const vm=url.match(/vimeo\.com\/(\d+)/);
+  if(vm)return`https://player.vimeo.com/video/${vm[1]}?autoplay=1&dnt=1`;
+  const tt=url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
+  if(tt)return`https://www.tiktok.com/embed/v2/${tt[1]}`;
+  return url;
+}
+function thumb(url){
+  if(!url)return null;
+  const yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(yt)return`https://img.youtube.com/vi/${yt[1]}/mqdefault.jpg`;
+  return null;
+}
+function esc(s){
+  if(!s)return'';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+const wgrid=document.getElementById('wgrid');
+const wempty=document.getElementById('wempty');
+
+function render(){
+  const works=load();
+  wgrid.innerHTML='';
+  if(!works.length){wempty.classList.remove('hidden');return;}
+  wempty.classList.add('hidden');
+  works.forEach((w,i)=>{
+    const card=document.createElement('div');
+    card.className='wcard'+(isAdmin?' admin-on':'');
+    card.style.transitionDelay=`${i*.07}s`;
+    const t=thumb(w.url);
+    card.innerHTML=`
+      <div class="wthumb">
+        ${t?`<img src="${t}" alt="${esc(w.title)}" loading="lazy"/>`:`<div class="wthph"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="8" y="12" width="44" height="36" rx="3" stroke="white" stroke-width="1"/><path d="M24 22l16 8-16 8V22z" fill="white"/></svg></div>`}
+        <div class="wplay"><div class="pbtn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3l11 5-11 5V3z" fill="#0B0F1E"/></svg></div></div>
+        ${isAdmin?`<button class="wdel" data-id="${w.id}" title="Delete">✕</button>`:''}
+      </div>
+      <div class="winfo">
+        <div class="wmeta"><span class="wcat">${esc(w.category)}</span><span class="wyr">${esc(w.year)}</span></div>
+        <h3 class="wtit">${esc(w.title)}</h3>
+        ${w.description?`<p class="wdesc">${esc(w.description)}</p>`:''}
+      </div>`;
+    card.addEventListener('click',e=>{
+      if(e.target.closest('.wdel'))return;
+      openM(w);
+    });
+    wgrid.appendChild(card);
+    const co=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');co.unobserve(en.target)}});
+    },{threshold:.08});
+    co.observe(card);
+  });
+  if(isAdmin){
+    wgrid.querySelectorAll('.wdel').forEach(b=>b.addEventListener('click',()=>{
+      const updated=load().filter(x=>x.id!==b.dataset.id);
+      save(updated);render();
+    }));
+  }
+}
+
+/* modal */
+const modal=document.getElementById('modal');
+const mov=document.getElementById('mov');
+const mcls=document.getElementById('mcls');
+const mvw=document.getElementById('mvw');
+function openM(w){
+  const eu=embedUrl(w.url);
+  mvw.innerHTML=eu?`<iframe src="${eu}" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.3);font-size:.85rem">No video URL</div>`;
+  document.getElementById('mcat').textContent=w.category||'';
+  document.getElementById('mtit').textContent=w.title||'';
+  document.getElementById('mdesc').textContent=w.description||'';
+  document.getElementById('myr').textContent=w.year||'';
+  modal.classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeM(){modal.classList.add('hidden');mvw.innerHTML='';document.body.style.overflow='';}
+mcls.addEventListener('click',closeM);
+mov.addEventListener('click',closeM);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+
+/* admin */
+const apanel=document.getElementById('apanel');
+const afw=document.getElementById('afw');
+function checkAdmin(){
+  isAdmin=location.hash==='#admin';
+  isAdmin?apanel.classList.remove('hidden'):apanel.classList.add('hidden');
+  render();
+}
+window.addEventListener('hashchange',checkAdmin);
+afw&&afw.addEventListener('click',()=>{location.hash='#admin';document.getElementById('works').scrollIntoView({behavior:'smooth'});});
+
+document.getElementById('addWBtn').addEventListener('click',()=>{
+  const t=document.getElementById('wTitle').value.trim();
+  const c=document.getElementById('wCat').value;
+  const u=document.getElementById('wUrl').value.trim();
+  const d=document.getElementById('wDesc').value.trim();
+  const y=document.getElementById('wYr').value.trim();
+  if(!t){alert('Please enter a project title.');return;}
+  const works=load();
+  works.push({id:'w'+Date.now(),title:t,category:c,url:u,description:d,year:y});
+  save(works);
+  ['wTitle','wUrl','wDesc','wYr'].forEach(id=>document.getElementById(id).value='');
+  render();
+});
+
+document.getElementById('expBtn').addEventListener('click',()=>{
+  const b=new Blob([JSON.stringify(load(),null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='works-data.json';a.click();
+});
+
+const impBtn=document.getElementById('impBtn');
+const impFile=document.getElementById('impFile');
+impBtn.addEventListener('click',()=>impFile.click());
+impFile.addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){save(d);render();alert('Works imported!');}}catch{alert('Invalid JSON.');}};
+  r.readAsText(f);impFile.value='';
+});
+
+/* ── CONTACT FORM ── */
+const cform=document.getElementById('cform');
+const sbtn=document.getElementById('sbtn');
+const fstat=document.getElementById('fstat');
+
+function clrErr(){
+  ['fn','fe','fm'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('err');});
+  ['fne','fee','fme'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
+}
+function setErr(fid,eid,msg){
+  const el=document.getElementById(fid);if(el)el.classList.add('err');
+  const em=document.getElementById(eid);if(em)em.textContent=msg;
+}
+
+cform.addEventListener('submit',async e=>{
+  e.preventDefault();clrErr();
+  const name=document.getElementById('fn').value.trim();
+  const email=document.getElementById('fe').value.trim();
+  const msg=document.getElementById('fm').value.trim();
+  let ok=true;
+  if(!name){setErr('fn','fne','Please enter your full name.');ok=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setErr('fe','fee','Please enter a valid email address.');ok=false;}
+  if(!msg||msg.length<10){setErr('fm','fme','Message must be at least 10 characters.');ok=false;}
+  if(!ok)return;
+
+  sbtn.disabled=true;
+  sbtn.querySelector('.bt').textContent='Sending…';
+  fstat.textContent='';fstat.className='fstat';
+
+  // Formspree integration — replace YOUR_FORMSPREE_ID with your actual ID
+  // Get yours free at formspree.io (set recipient = robbcenan082708@gmail.com)
+  const FID='mgoqdweb';
+
+  if(FID==='mgoqdweb'){
+    const s=encodeURIComponent(`Portfolio Inquiry from ${name}`);
+    const b=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+    window.open(`mailto:robbcenan082708@gmail.com?subject=${s}&body=${b}`,'_blank');
+    fstat.textContent="Your email client opened with a pre-filled message. Please hit send!";
+    fstat.className='fstat ok';
+    cform.reset();
+  }else{
+    try{
+      const res=await fetch(`https://formspree.io/f/${FID}`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({name,email,message:msg,_replyto:email})
+      });
+      if(res.ok){
+        fstat.textContent="Message sent! I'll get back to you soon.";
+        fstat.className='fstat ok';
+        cform.reset();
+      }else throw new Error();
+    }catch{
+      fstat.textContent='Something went wrong. Please try again.';
+      fstat.className='fstat bad';
+    }
+  }
+  sbtn.disabled=false;
+  sbtn.querySelector('.bt').textContent='Send Message';
+});
+
+/* ── INIT ── */
+checkAdmin();
+})();
+</script>
 </body>
 </html>
