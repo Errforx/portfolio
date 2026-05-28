@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>e27f0rx — Video Editor</title>
+  <meta name="description" content="Portfolio of Robb (e27f0rx), a video editor based in the Philippines specializing in trailers, documentaries, short-form and long-form content." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">e27f0rx</div>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">e27f0rx</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#works" class="nav-link">Works</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-up">Video Editor · Philippines</p>
+      <h1 class="hero-title reveal-up">
+        <span>Crafting</span><br/>
+        <em>Stories</em><br/>
+        <span>Through</span><br/>
+        <span>Motion.</span>
+      </h1>
+      <p class="hero-sub reveal-up">Trailers · Documentaries · Short & Long Form</p>
+      <a href="#works" class="hero-cta reveal-up">View My Work <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label reveal-left">01 — About</div>
+    <div class="about-layout">
+      <div class="about-portrait reveal-left">
+        <div class="portrait-frame">
+          <div class="portrait-placeholder">
+            <svg viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="45" r="28" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <path d="M10 130 Q60 95 110 130" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+            </svg>
+            <span>Photo</span>
+          </div>
+        </div>
+        <div class="about-tags">
+          <span class="tag">3+ Years</span>
+          <span class="tag">Philippines</span>
+          <span class="tag">Editor</span>
+        </div>
+      </div>
+      <div class="about-text reveal-right">
+        <h2 class="section-title">The Editor<br/><em>Behind the Frame</em></h2>
+        <p class="about-lead">I'm Robb — known online as <strong>e27f0rx</strong> — a self-taught video editor rooted in the Philippines.</p>
+        <p class="about-body">With over 3 years of dedicated editing experience, I've honed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p>
+        <p class="about-body">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p>
+        <div class="about-specialties">
+          <div class="specialty">
+            <span class="spec-icon">▸</span>
+            <span>Trailers</span>
+          </div>
+          <div class="specialty">
+            <span class="spec-icon">▸</span>
+            <span>Documentary-style</span>
+          </div>
+          <div class="specialty">
+            <span class="spec-icon">▸</span>
+            <span>Short-form Content</span>
+          </div>
+          <div class="specialty">
+            <span class="spec-icon">▸</span>
+            <span>Long-form Content</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="section-label reveal-left">02 — Works</div>
+    <div class="works-header reveal-up">
+      <h2 class="section-title">Selected<br/><em>Projects</em></h2>
+      <p class="works-sub">A curated showcase of edits across formats and genres.</p>
+    </div>
+
+    <!-- ADMIN PANEL (hidden by default, toggle via URL hash) -->
+    <div id="adminPanel" class="admin-panel hidden">
+      <div class="admin-panel-inner">
+        <h3>Manage Works <span class="admin-badge">Admin</span></h3>
+        <div class="admin-form">
+          <div class="form-row">
+            <input type="text" id="workTitle" placeholder="Project Title" class="admin-input" />
+            <select id="workCategory" class="admin-input">
+              <option value="Trailer">Trailer</option>
+              <option value="Documentary">Documentary</option>
+              <option value="Short-form">Short-form</option>
+              <option value="Long-form">Long-form</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <input type="text" id="workUrl" placeholder="YouTube / Vimeo URL or embed link" class="admin-input" />
+          </div>
+          <div class="form-row">
+            <input type="text" id="workDesc" placeholder="Brief description (optional)" class="admin-input" />
+            <input type="text" id="workYear" placeholder="Year (e.g. 2024)" class="admin-input short" />
+          </div>
+          <div class="admin-actions">
+            <button class="admin-btn" id="addWorkBtn">+ Add Project</button>
+            <button class="admin-btn secondary" id="exportWorksBtn">Export JSON</button>
+            <button class="admin-btn secondary" id="importWorksBtn">Import JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display:none"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="works-grid" id="worksGrid">
+      <!-- Works are rendered by JS -->
+    </div>
+
+    <div class="works-empty hidden" id="worksEmpty">
+      <p>No projects yet. <span id="addFirstWork">Add your first work →</span></p>
+    </div>
+
+    <!-- VIDEO MODAL -->
+    <div id="videoModal" class="modal hidden">
+      <div class="modal-overlay" id="modalOverlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-video-wrap" id="modalVideoWrap"></div>
+        <div class="modal-info">
+          <span class="modal-category" id="modalCategory"></span>
+          <h3 class="modal-title" id="modalTitle"></h3>
+          <p class="modal-desc" id="modalDesc"></p>
+          <span class="modal-year" id="modalYear"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal-left">03 — Contact</div>
+    <div class="contact-layout">
+      <div class="contact-left reveal-left">
+        <h2 class="section-title">Let's Make<br/><em>Something</em><br/>Together.</h2>
+        <p class="contact-sub">Have a project in mind? Let's talk about it.</p>
+        <div class="contact-info">
+          <a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="contact-social">YouTube</a>
+          <a href="#" class="contact-social">Instagram</a>
+        </div>
+      </div>
+      <div class="contact-right reveal-right">
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="field-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Your full name" required autocomplete="name"/>
+            <span class="field-error" id="nameError"></span>
+          </div>
+          <div class="field-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email"/>
+            <span class="field-error" id="emailError"></span>
+          </div>
+          <div class="field-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+            <span class="field-error" id="messageError"></span>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l12-5-5 12-2-5-5-2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="form-status" id="formStatus"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">e27f0rx</span>
+      <span class="footer-copy">© <span id="footerYear"></span> All rights reserved.</span>
+      <span class="footer-made">Crafted with precision.</span>
+    </div>
+  </footer>
+
+  <script src="js/works-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
