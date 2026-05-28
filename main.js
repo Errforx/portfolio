@@ -386,7 +386,7 @@
 
     // Uses Formspree — free, no backend needed, works on GitHub Pages
     // Replace FORM_ID with your actual Formspree form ID (see README.md)
-    const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // ← replace this
+    const FORMSPREE_ID = 'mgoqdweb'; // ← replace this
 
     if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
       // Fallback: open mailto link
