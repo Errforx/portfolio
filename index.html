@@ -37,7 +37,6 @@ button{cursor:none;background:none;border:none;font-family:inherit}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:rgba(200,169,110,0.3);border-radius:10px}
-
 /* ── LOADER ── */
 #loader{
   position:fixed;inset:0;z-index:9999;
@@ -68,14 +67,12 @@ button{cursor:none;background:none;border:none;font-family:inherit}
 }
 @keyframes fuD{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes lswp{0%{left:-100%}100%{left:200%}}
-
 /* ── CURSOR ── */
 #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .25s}
 #cur2{position:fixed;width:34px;height:34px;border:1px solid rgba(200,169,110,.35);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 body.ch #cur{width:14px;height:14px;background:var(--w)}
 body.ch #cur2{width:54px;height:54px;border-color:rgba(255,255,255,.18)}
 @media(hover:none){#cur,#cur2{display:none}body{cursor:auto}button{cursor:pointer}}
-
 /* ── NAVBAR ── */
 #nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
@@ -100,7 +97,6 @@ body.ch #cur2{width:54px;height:54px;border-color:rgba(255,255,255,.18)}
 .ntog span{display:block;width:22px;height:1px;background:var(--ow);transition:transform .4s var(--ease),opacity .3s}
 .ntog.open span:first-child{transform:translateY(6px) rotate(45deg)}
 .ntog.open span:last-child{transform:translateY(-6px) rotate(-45deg)}
-
 /* ── HERO ── */
 #hero{
   position:relative;min-height:100svh;
@@ -142,43 +138,16 @@ body.ch #cur2{width:54px;height:54px;border-color:rgba(255,255,255,.18)}
 .hscr span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;writing-mode:vertical-lr}
 .sline{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sp 2.2s ease-in-out infinite}
 @keyframes sp{0%,100%{opacity:.4}50%{opacity:1}}
-
 /* ── SECTIONS ── */
 section{padding:clamp(5rem,10vw,10rem) clamp(1.5rem,9vw,8rem);position:relative}
 section+section{border-top:1px solid var(--border)}
 .slabel{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:3rem}
 .stit{font-family:var(--serif);font-size:clamp(2.8rem,5.5vw,6rem);font-weight:300;line-height:1.02;color:var(--w);margin-bottom:1.5rem}
 .stit em{font-style:italic;color:var(--gold)}
-
 /* ── ABOUT ── */
 .alay{display:grid;grid-template-columns:1fr 1.65fr;gap:clamp(3rem,7vw,8rem);align-items:start;margin-top:1rem}
 .apic{display:flex;flex-direction:column;gap:1.5rem}
-.pframe{
-  aspect-ratio:3/4;max-height:500px;
-  background:transparent;border:none;
-  border-radius:0;overflow:hidden;position:relative;
-  display:flex;align-items:center;justify-content:center;
-}
-/* Cinematic blending: dark vignette fades photo into site bg */
-.pframe::before{
-  content:'';position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(to bottom, var(--bg) 0%, transparent 18%, transparent 72%, var(--bg) 100%),
-    linear-gradient(to right,  var(--bg) 0%, transparent 22%, transparent 78%, var(--bg) 100%);
-  pointer-events:none;
-}
-/* Subtle gold colour wash blended on top */
-.pframe::after{
-  content:'';position:absolute;inset:0;z-index:2;
-  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,110,.06) 0%, transparent 70%);
-  mix-blend-mode:screen;
-  pointer-events:none;
-}
-.pframe img{
-  width:100%;height:100%;object-fit:cover;object-position:center top;
-  filter:grayscale(28%) contrast(1.06) brightness(0.88);
-  display:block;
-}
+
 .pfph{display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:.22;color:var(--ow)}
 .pfph svg{width:80px;height:80px}
 .pfph span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase}
@@ -198,7 +167,6 @@ section+section{border-top:1px solid var(--border)}
 }
 .spec:hover{border-color:rgba(200,169,110,.28);background:var(--gold-dim)}
 .sico{color:var(--gold);font-size:.68rem;flex-shrink:0}
-
 /* ── WORKS ── */
 .whead{margin-bottom:3.5rem}
 .wsub{font-size:.86rem;color:var(--muted);margin-top:.4rem}
@@ -244,7 +212,6 @@ section+section{border-top:1px solid var(--border)}
 .wempty{text-align:center;padding:4rem 0;color:var(--muted);font-size:.9rem}
 .wempty .afw{color:var(--gold);transition:opacity .3s}
 .wempty .afw:hover{opacity:.7}
-
 /* ── ADMIN ── */
 .apanel{
   background:var(--card);border:1px solid rgba(200,169,110,.18);
@@ -275,7 +242,6 @@ section+section{border-top:1px solid var(--border)}
 .abtn:hover{opacity:.85;transform:translateY(-1px)}
 .abtn.sec{background:transparent;color:var(--gold)}
 .abtn.sec:hover{background:var(--gold-dim)}
-
 /* ── MODAL ── */
 #modal{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 #modal.hidden{display:none}
@@ -302,7 +268,6 @@ section+section{border-top:1px solid var(--border)}
 .mtit{font-family:var(--serif);font-size:1.75rem;font-weight:400;color:var(--w);margin-bottom:.45rem}
 .mdesc{font-size:.83rem;color:var(--muted);margin-bottom:.4rem}
 .myr{font-size:.72rem;color:var(--muted)}
-
 /* ── CONTACT ── */
 .clay{display:grid;grid-template-columns:1fr 1.45fr;gap:clamp(3rem,7vw,8rem);align-items:start;margin-top:1rem}
 .csub{font-size:.86rem;color:var(--muted);margin-bottom:2.5rem;margin-top:.7rem}
@@ -340,51 +305,17 @@ section+section{border-top:1px solid var(--border)}
 .fstat{font-size:.8rem;padding:.4rem 0;min-height:1.4rem;transition:opacity .4s}
 .fstat.ok{color:#7ec8a0}
 .fstat.bad{color:rgba(220,100,100,.9)}
-
 /* ── FOOTER ── */
 #footer{border-top:1px solid var(--border);padding:2rem clamp(1.5rem,9vw,8rem)}
 .finn{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .flo{font-family:var(--serif);font-size:1.05rem;letter-spacing:.14em;color:var(--muted)}
 .fcp,.fmade{font-size:.72rem;color:var(--muted);letter-spacing:.07em}
-
-/* ── ADMIN LOGIN MODAL ── */
-#adminLogin{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;padding:1.5rem}
-#adminLogin.hidden{display:none}
-.alov{position:absolute;inset:0;background:rgba(5,8,18,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.albox{
-  position:relative;z-index:1;background:var(--card);
-  border:1px solid rgba(200,169,110,.18);border-radius:8px;
-  padding:2.5rem 2.5rem 2rem;width:100%;max-width:360px;
-  animation:min .4s var(--ease);text-align:center;
-}
-.albox h3{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--w);margin-bottom:.4rem}
-.albox p{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem}
-.albox input{
-  width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);
-  border-radius:4px;color:var(--ow);font-family:var(--sans);font-size:.95rem;
-  padding:.82rem 1rem;outline:none;text-align:center;letter-spacing:.25em;
-  transition:border-color .3s;margin-bottom:.8rem;
-}
-.albox input:focus{border-color:rgba(200,169,110,.45)}
-.albox input.sherr{border-color:rgba(220,80,80,.55)}
-.alerr{font-size:.72rem;color:rgba(220,100,100,.85);min-height:1.1em;margin-bottom:.8rem;display:block}
-.albtn{
-  width:100%;padding:.85rem;border-radius:100px;
-  background:var(--gold);color:var(--bg);
-  font-family:var(--sans);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
-  border:none;transition:background .3s,transform .3s var(--ease);
-}
-.albtn:hover{background:#d4b47a;transform:translateY(-1px)}
-.alcnl{display:block;margin-top:1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .3s}
-.alcnl:hover{color:var(--w)}
-
 /* ── REVEAL ── */
 .ru,.rl,.rr{opacity:0;transition:opacity .85s var(--ease),transform .85s var(--ease)}
 .ru{transform:translateY(36px)}
 .rl{transform:translateX(-28px)}
 .rr{transform:translateX(28px)}
 .ru.vis,.rl.vis,.rr.vis{opacity:1;transform:none}
-
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .alay{grid-template-columns:1fr}
@@ -414,518 +345,346 @@ section+section{border-top:1px solid var(--border)}
   section{padding:4rem 1.25rem}
   #hero{padding:calc(var(--nav) + 3rem) 1.25rem 5rem}
 }
+/* ADMIN LOGIN */
+#adminLogin{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+#adminLogin.hidden{display:none}
+.alov{position:absolute;inset:0;background:rgba(5,8,18,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.albox{position:relative;z-index:1;background:var(--card);border:1px solid rgba(200,169,110,.18);border-radius:8px;padding:2.5rem 2.5rem 2rem;width:100%;max-width:360px;animation:min .4s var(--ease);text-align:center}
+.albox h3{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--w);margin-bottom:.4rem}
+.albox p{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem}
+.albox input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:4px;color:var(--ow);font-family:var(--sans);font-size:.95rem;padding:.82rem 1rem;outline:none;text-align:center;letter-spacing:.25em;transition:border-color .3s;margin-bottom:.8rem}
+.albox input:focus{border-color:rgba(200,169,110,.45)}
+.albox input.sherr{border-color:rgba(220,80,80,.55)}
+.alerr{font-size:.72rem;color:rgba(220,100,100,.85);min-height:1.1em;margin-bottom:.8rem;display:block}
+.albtn{width:100%;padding:.85rem;border-radius:100px;background:var(--gold);color:var(--bg);font-family:var(--sans);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;border:none;transition:background .3s,transform .3s var(--ease)}
+.albtn:hover{background:#d4b47a;transform:translateY(-1px)}
+.alcnl{display:block;margin-top:1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .3s;cursor:pointer}
+.alcnl:hover{color:var(--w)}
+/* PHOTO BLEND */
+.pframe{aspect-ratio:3/4;max-height:500px;background:transparent;border:none;border-radius:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.pframe::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,var(--bg) 0%,transparent 18%,transparent 72%,var(--bg) 100%),linear-gradient(to right,var(--bg) 0%,transparent 22%,transparent 78%,var(--bg) 100%);pointer-events:none}
+.pframe::after{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(200,169,110,.06) 0%,transparent 70%);mix-blend-mode:screen;pointer-events:none}
+.pframe img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(28%) contrast(1.06) brightness(.88);display:block}
 </style>
 </head>
-<body>
-
-<!-- LOADER -->
-<div id="loader">
-  <div class="ld-wrap">
-    <div class="ld-name">e27f0rx</div>
-    <div class="ld-tag">Video Editor</div>
-    <div class="ld-line"><span></span></div>
-  </div>
-</div>
-
-<!-- CURSOR -->
-<div id="cur"></div>
-<div id="cur2"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#hero" class="nl">e27f0rx</a>
-  <button class="ntog" id="ntog" aria-label="Toggle menu"><span></span><span></span></button>
-  <ul class="nlinks" id="nlinks">
-    <li><a href="#about" class="nlink">About</a></li>
-    <li><a href="#works" class="nlink">Works</a></li>
-    <li><a href="#contact" class="nlink">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hgrid"></div>
-  <div class="hcon">
-    <p class="hey ru">Video Editor</p>
-    <h1 class="htit ru">
+<body><div id="loader"><div class="ld-wrap"><div class="ld-name">e27f0rx</div><div class="ld-tag">Video Editor</div><div class="ld-line"><span></span></div></div>
+</div><div id="cur"></div>
+<div id="cur2"></div><nav id="nav"><a href="#hero" class="nl">e27f0rx</a><button class="ntog" id="ntog" aria-label="Toggle menu"><span></span><span></span></button><ul class="nlinks" id="nlinks"><li><a href="#about" class="nlink">About</a></li><li><a href="#works" class="nlink">Works</a></li><li><a href="#contact" class="nlink">Contact</a></li></ul>
+</nav><section id="hero"><div class="hgrid"></div><div class="hcon"><p class="hey ru">Video Editor</p><h1 class="htit ru">
       Crafting<br/><em>Stories</em><br/>Through<br/>Motion.
-    </h1>
-    <p class="hsub ru">Motion Graphics · Documentary · Short Films · Short &amp; Long Form</p>
-    <a href="#works" class="hcta ru">
+    </h1><p class="hsub ru">Motion Graphics · Documentary · Short Films · Short &amp; Long Form</p><a href="#works" class="hcta ru">
       View My Work
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
-  <div class="hscr">
-    <span>Scroll</span>
-    <div class="sline"></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="slabel rl">01 — About</div>
-  <div class="alay">
-    <div class="apic rl">
-      <div class="pframe">
-        <img src="hatdog.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-      </div>
-      <div class="tags">
-        <span class="tag">3+ Years</span>
-        <span class="tag">Of</span>
-        <span class="tag">Experience</span>
-      </div>
-    </div>
-    <div class="rr">
-      <h2 class="stit">The Editor<br/><em>Behind the Frame</em></h2>
-      <p class="alead">I'm Robb — known online as <strong>e27f0rx</strong> — a video editor based in the Philippines.</p>
-      <p class="abody">With 3+ years of dedicated editing experience, I've developed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p>
-      <p class="abody">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p>
-      <div class="aspecs">
-        <div class="spec"><span class="sico">▸</span> Motion Graphics</div>
-        <div class="spec"><span class="sico">▸</span> Documentary-style</div>
-        <div class="spec"><span class="sico">▸</span> Short-form Content</div>
-        <div class="spec"><span class="sico">▸</span> Long-form Content</div>
-        <div class="spec"><span class="sico">▸</span> Short Film</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WORKS -->
-<section id="works">
-  <div class="slabel rl">02 — Works</div>
-
-  <!-- ADMIN PANEL -->
-  <div id="apanel" class="apanel hidden">
-    <div class="apinn">
-      <h3>Manage Works <span class="abadge">Admin Only</span></h3>
-      <div class="frow">
-        <input type="text" id="wTitle" placeholder="Project Title" class="ain"/>
-        <select id="wCat" class="ain" style="flex:0 0 150px">
-          <option value="Trailer">Trailer</option>
-          <option value="Documentary">Documentary</option>
-          <option value="Short-form">Short-form</option>
-          <option value="Long-form">Long-form</option>
-        </select>
-      </div>
-      <div class="frow">
-        <input type="text" id="wUrl" placeholder="YouTube / Vimeo / TikTok URL" class="ain"/>
-      </div>
-      <div class="frow">
-        <input type="text" id="wDesc" placeholder="Brief description (optional)" class="ain"/>
-        <input type="text" id="wYr" placeholder="Year" class="ain sh"/>
-      </div>
-      <div class="aacts">
-        <button class="abtn" id="addWBtn">+ Add Project</button>
-        <button class="abtn sec" id="expBtn">Export JSON</button>
-        <button class="abtn sec" id="impBtn">Import JSON</button>
-        <input type="file" id="impFile" accept=".json" style="display:none"/>
-      </div>
-    </div>
-  </div>
-
-  <div class="whead ru">
-    <h2 class="stit">Selected<br/><em>Projects</em></h2>
-    <p class="wsub">A curated showcase of edits across formats and genres.</p>
-  </div>
-
-  <div class="wgrid" id="wgrid"></div>
-  <div class="wempty hidden" id="wempty">
-    <p>No projects yet. <span class="afw" id="afw">Add your first work →</span></p>
-  </div>
-</section>
-
-<!-- ADMIN LOGIN MODAL -->
-<div id="adminLogin" class="hidden">
-  <div class="alov"></div>
-  <div class="albox">
-    <h3>Admin Access</h3>
-    <p>Enter password to manage works</p>
-    <input type="password" id="alPw" placeholder="••••••••" autocomplete="current-password"/>
-    <span class="alerr" id="alErr"></span>
-    <button class="albtn" id="alBtn">Unlock</button>
-    <a class="alcnl" id="alCnl">Cancel</a>
-  </div>
-</div>
-
-<!-- VIDEO MODAL -->
-<div id="modal" class="hidden">
-  <div class="mov" id="mov"></div>
-  <div class="mcon">
-    <button class="mcls" id="mcls">✕</button>
-    <div class="mvw" id="mvw"></div>
-    <div class="minf">
-      <span class="mcat" id="mcat"></span>
-      <h3 class="mtit" id="mtit"></h3>
-      <p class="mdesc" id="mdesc"></p>
-      <span class="myr" id="myr"></span>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="slabel rl">03 — Contact</div>
-  <div class="clay">
-    <div class="rl">
-      <h2 class="stit">Let's Make<br/><em>Something</em><br/>Together.</h2>
-      <p class="csub">Have a project in mind? Let's talk about it.</p>
-      <div class="cinfo">
-        <a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="csoc">YouTube</a>
-        <a href="https://x.com/e27f0rx" class="csoc">X</a>
-      </div>
-    </div>
-    <div class="rr">
-      <form id="cform" class="cform" novalidate>
-        <div class="fg">
-          <label for="fn">Full Name</label>
-          <input type="text" id="fn" name="name" placeholder="Your full name" required autocomplete="name"/>
-          <span class="ferr" id="fne"></span>
-        </div>
-        <div class="fg">
-          <label for="fe">Email Address</label>
-          <input type="email" id="fe" name="email" placeholder="your@email.com" required autocomplete="email"/>
-          <span class="ferr" id="fee"></span>
-        </div>
-        <div class="fg">
-          <label for="fm">Message</label>
-          <textarea id="fm" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
-          <span class="ferr" id="fme"></span>
-        </div>
-        <button type="submit" class="sbtn" id="sbtn">
-          <span class="bt">Send Message</span>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1.5 7.5l12-5-5 11.5-2-4.5-5-2z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="fstat" id="fstat"></div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="footer">
-  <div class="finn">
-    <span class="flo">e27f0rx</span>
-    <span class="fcp">© <span id="fyr"></span> All rights reserved.</span>
-    <span class="fmade">Contact me: robbcenan082708@gmail.com</span>
-  </div>
-</footer>
-
-<script>
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><div class="hscr"><span>Scroll</span><div class="sline"></div></div>
+</section><section id="about"><div class="slabel rl">01 — About</div><div class="alay"><div class="apic rl"><div class="pframe"><img src="hatdog.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/></div><div class="tags"><span class="tag">3+ Years</span><span class="tag">Of</span><span class="tag">Experience</span></div></div><div class="rr"><h2 class="stit">The Editor<br/><em>Behind the Frame</em></h2><p class="alead">I'm Robb — known online as <strong>e27f0rx</strong> — a video editor based in the Philippines.</p><p class="abody">With 3+ years of dedicated editing experience, I've developed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p><p class="abody">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p><div class="aspecs"><div class="spec"><span class="sico">▸</span> Motion Graphics</div><div class="spec"><span class="sico">▸</span> Documentary-style</div><div class="spec"><span class="sico">▸</span> Short-form Content</div><div class="spec"><span class="sico">▸</span> Long-form Content</div><div class="spec"><span class="sico">▸</span> Short Film</div></div></div></div>
+</section><section id="works"><div class="slabel rl">02 — Works</div><div id="apanel" class="apanel hidden"><div class="apinn"><h3>Manage Works <span class="abadge">Admin Only</span></h3><div class="frow"><input type="text" id="wTitle" placeholder="Project Title" class="ain"/><input type="text" id="wCat" placeholder="Category (e.g. Trailer, Documentary…)" class="ain"/></div><div class="frow"><input type="text" id="wUrl" placeholder="YouTube / Vimeo / TikTok URL" class="ain"/></div><div class="frow"><input type="text" id="wDesc" placeholder="Brief description (optional)" class="ain"/><input type="text" id="wYr" placeholder="Year" class="ain sh"/></div><div class="aacts"><button class="abtn" id="addWBtn">+ Add Project</button><button class="abtn sec" id="expBtn">Export JSON</button><button class="abtn sec" id="impBtn">Import JSON</button><input type="file" id="impFile" accept=".json" style="display:none"/></div></div></div><div class="whead ru"><h2 class="stit">Selected<br/><em>Projects</em></h2><p class="wsub">A curated showcase of edits across formats and genres.</p></div><div class="wgrid" id="wgrid"></div><div class="wempty hidden" id="wempty"><p>No projects yet.</p></div>
+</section><div id="adminLogin" class="hidden"><div class="alov"></div><div class="albox"><h3>Admin Access</h3><p>Enter password to manage works</p><input type="password" id="alPw" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="current-password"/><span class="alerr" id="alErr"></span><button class="albtn" id="alBtn">Unlock</button><span class="alcnl" id="alCnl">Cancel</span></div>
+</div><div id="modal" class="hidden"><div class="mov" id="mov"></div><div class="mcon"><button class="mcls" id="mcls">✕</button><div class="mvw" id="mvw"></div><div class="minf"><span class="mcat" id="mcat"></span><h3 class="mtit" id="mtit"></h3><p class="mdesc" id="mdesc"></p><span class="myr" id="myr"></span></div></div>
+</div><section id="contact"><div class="slabel rl">03 — Contact</div><div class="clay"><div class="rl"><h2 class="stit">Let's Make<br/><em>Something</em><br/>Together.</h2><p class="csub">Have a project in mind? Let's talk about it.</p><div class="cinfo"><a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="csoc">YouTube</a><a href="https://x.com/e27f0rx" class="csoc">X</a></div></div><div class="rr"><form id="cform" class="cform" novalidate><div class="fg"><label for="fn">Full Name</label><input type="text" id="fn" name="name" placeholder="Your full name" required autocomplete="name"/><span class="ferr" id="fne"></span></div><div class="fg"><label for="fe">Email Address</label><input type="email" id="fe" name="email" placeholder="your@email.com" required autocomplete="email"/><span class="ferr" id="fee"></span></div><div class="fg"><label for="fm">Message</label><textarea id="fm" name="message" rows="5" placeholder="Tell me about your project..." required></textarea><span class="ferr" id="fme"></span></div><button type="submit" class="sbtn" id="sbtn"><span class="bt">Send Message</span><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1.5 7.5l12-5-5 11.5-2-4.5-5-2z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg></button><div class="fstat" id="fstat"></div></form></div></div>
+</section><footer id="footer"><div class="finn"><span class="flo">e27f0rx</span><span class="fcp">© <span id="fyr"></span> All rights reserved.</span><span class="fmade">Contact me: robbcenan082708@gmail.com</span></div>
+</footer><script>
 (function(){
 'use strict';
-
-/* ── LOADER ── */
-const loader=document.getElementById('loader');
+/* LOADER */
+var _ld=document.getElementById('loader');
 document.body.classList.add('loading');
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    loader.classList.add('done');
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    _ld.classList.add('done');
     document.body.classList.remove('loading');
-    document.querySelectorAll('#hero .ru').forEach((el,i)=>{
-      setTimeout(()=>el.classList.add('vis'),i*140+50);
+    document.querySelectorAll('#hero .ru').forEach(function(el,i){
+      setTimeout(function(){el.classList.add('vis');},i*140+50);
     });
   },2000);
 });
-
-/* ── CURSOR ── */
-const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
-let cx=0,cy=0,fx=0,fy=0;
+/* CURSOR */
+var _c=document.getElementById('cur'),_c2=document.getElementById('cur2');
+var _cx=0,_cy=0,_fx=0,_fy=0;
 if(window.matchMedia('(hover:hover)').matches){
-  document.addEventListener('mousemove',e=>{
-    cx=e.clientX;cy=e.clientY;
-    cur.style.left=cx+'px';cur.style.top=cy+'px';
+  document.addEventListener('mousemove',function(e){
+    _cx=e.clientX;_cy=e.clientY;
+    _c.style.left=_cx+'px';_c.style.top=_cy+'px';
   });
-  (function loop(){
-    fx+=(cx-fx)*.11;fy+=(cy-fy)*.11;
-    cur2.style.left=fx+'px';cur2.style.top=fy+'px';
-    requestAnimationFrame(loop);
+  (function _loop(){
+    _fx+=(_cx-_fx)*.11;_fy+=(_cy-_fy)*.11;
+    _c2.style.left=_fx+'px';_c2.style.top=_fy+'px';
+    requestAnimationFrame(_loop);
   })();
-  document.querySelectorAll('a,button,[data-h]').forEach(el=>{
-    el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
-    el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+  document.querySelectorAll('a,button,[data-h]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){document.body.classList.add('ch');});
+    el.addEventListener('mouseleave',function(){document.body.classList.remove('ch');});
   });
 }
-
-/* ── NAV ── */
-const nav=document.getElementById('nav');
-const ntog=document.getElementById('ntog');
-const nlinks=document.getElementById('nlinks');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
-ntog.addEventListener('click',()=>{
-  const o=nlinks.classList.toggle('open');
-  ntog.classList.toggle('open',o);
+/* NAV */
+var _nav=document.getElementById('nav');
+var _ntog=document.getElementById('ntog');
+var _nlinks=document.getElementById('nlinks');
+window.addEventListener('scroll',function(){_nav.classList.toggle('scrolled',scrollY>40);},{passive:true});
+_ntog.addEventListener('click',function(){
+  var o=_nlinks.classList.toggle('open');
+  _ntog.classList.toggle('open',o);
   document.body.style.overflow=o?'hidden':'';
 });
-nlinks.querySelectorAll('.nlink').forEach(a=>a.addEventListener('click',()=>{
-  nlinks.classList.remove('open');ntog.classList.remove('open');document.body.style.overflow='';
-}));
-
-/* ── REVEAL ── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+_nlinks.querySelectorAll('.nlink').forEach(function(a){
+  a.addEventListener('click',function(){
+    _nlinks.classList.remove('open');_ntog.classList.remove('open');document.body.style.overflow='';
+  });
+});
+/* REVEAL */
+var _obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');_obs.unobserve(e.target);}});
 },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.ru:not(#hero .ru),.rl,.rr').forEach(el=>obs.observe(el));
-
-/* ── FOOTER YEAR ── */
-const fyr=document.getElementById('fyr');if(fyr)fyr.textContent=new Date().getFullYear();
-
-/* ── WORKS ── */
-const SK='e27f0rx_works';
-let isAdmin=false;
-
-function load(){
-  try{const d=localStorage.getItem(SK);if(d)return JSON.parse(d);}catch{}
+document.querySelectorAll('.ru:not(#hero .ru),.rl,.rr').forEach(function(el){_obs.observe(el);});
+/* FOOTER YEAR */
+var _fy2=document.getElementById('fyr');if(_fy2)_fy2.textContent=new Date().getFullYear();
+/* WORKS */
+var _SK=['e','2','7','f','0','r','x','_','w','o','r','k','s'].join('');
+var _isAdmin=false;
+function _load(){
+  try{var d=localStorage.getItem(_SK);if(d)return JSON.parse(d);}catch(e){}
   return[];
 }
-function save(d){localStorage.setItem(SK,JSON.stringify(d));}
-
-function embedUrl(url){
+function _save(d){localStorage.setItem(_SK,JSON.stringify(d));}
+function _embedUrl(url){
   if(!url)return null;
   url=url.trim();
-  if(url.includes('/embed/'))return url;
-  const yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if(yt)return`https://www.youtube.com/embed/${yt[1]}?rel=0&modestbranding=1&autoplay=1`;
-  const vm=url.match(/vimeo\.com\/(\d+)/);
-  if(vm)return`https://player.vimeo.com/video/${vm[1]}?autoplay=1&dnt=1`;
-  const tt=url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
-  if(tt)return`https://www.tiktok.com/embed/v2/${tt[1]}`;
+  if(url.includes('/embed/')||url.includes('player.vimeo')||url.includes('tiktok.com/embed'))return url;
+  var yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(yt)return'https://www.youtube.com/embed/'+yt[1]+'?rel=0&modestbranding=1&autoplay=1';
+  var vm=url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if(vm)return'https://player.vimeo.com/video/'+vm[1]+'?autoplay=1&dnt=1';
+  var tt=url.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+  if(tt)return'https://www.tiktok.com/embed/v2/'+tt[1];
+  if(url.includes('facebook.com')||url.includes('fb.watch'))
+    return'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(url)+'&show_text=0&autoplay=1';
+  var ig=url.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/);
+  if(ig)return'https://www.instagram.com/p/'+ig[1]+'/embed/';
+  var gd=url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([A-Za-z0-9_-]+)/);
+  if(gd)return'https://drive.google.com/file/d/'+gd[1]+'/preview';
+  if(url.includes('drive.google.com')&&url.includes('/preview'))return url;
+  var sb=url.match(/streamable\.com\/([A-Za-z0-9]+)/);
+  if(sb)return'https://streamable.com/e/'+sb[1]+'?autoplay=1';
+  var dm=url.match(/dailymotion\.com\/video\/([A-Za-z0-9]+)/);
+  if(dm)return'https://www.dailymotion.com/embed/video/'+dm[1]+'?autoplay=1';
+  var twc=url.match(/twitch\.tv\/\w+\/clip\/([A-Za-z0-9_-]+)/);
+  if(twc)return'https://clips.twitch.tv/embed?clip='+twc[1]+'&parent='+location.hostname+'&autoplay=false';
+  var twv=url.match(/twitch\.tv\/videos\/(\d+)/);
+  if(twv)return'https://player.twitch.tv/?video=v'+twv[1]+'&parent='+location.hostname+'&autoplay=false';
+  var rb=url.match(/rumble\.com\/embed\/([A-Za-z0-9]+)/);
+  if(rb)return'https://rumble.com/embed/'+rb[1]+'/';
+  var bb=url.match(/bilibili\.com\/video\/(BV[A-Za-z0-9]+)/);
+  if(bb)return'https://player.bilibili.com/player.html?bvid='+bb[1]+'&autoplay=0';
+  var od=url.match(/odysee\.com\/@?[^\/]+\/([^\/\?#]+)/);
+  if(od)return'https://odysee.com/$/embed/'+od[1];
+  if(/\.(mp4|webm|mov|mkv|ogg)(\?.*)?$/i.test(url))return'__VIDEO__'+url;
   return url;
 }
-function thumb(url){
+function _buildPlayer(eu,title){
+  if(!eu)return'<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.25);font-size:.85rem">No video URL provided</div>';
+  if(eu.startsWith('__VIDEO__')){
+    var src=eu.replace('__VIDEO__','');
+    return'<video controls autoplay style="position:absolute;inset:0;width:100%;height:100%;background:#000" src="'+src+'"></video>';
+  }
+  var isDrive=eu.includes('drive.google.com');
+  var sb=isDrive?'sandbox="allow-scripts allow-same-origin allow-forms allow-popups"':'';
+  return'<iframe src="'+eu+'" '+sb+' allow="autoplay;fullscreen;picture-in-picture;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>';
+}
+function _thumb(url){
   if(!url)return null;
-  const yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if(yt)return`https://img.youtube.com/vi/${yt[1]}/mqdefault.jpg`;
+  var yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(yt)return'https://img.youtube.com/vi/'+yt[1]+'/mqdefault.jpg';
+  var vm=url.match(/vimeo\.com\/(?:video\/)?([0-9]+)/);
+  if(vm)return'https://vumbnail.com/'+vm[1]+'.jpg';
   return null;
 }
-function esc(s){
+function _esc(s){
   if(!s)return'';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
-
-const wgrid=document.getElementById('wgrid');
-const wempty=document.getElementById('wempty');
-
-function render(){
-  const works=load();
-  wgrid.innerHTML='';
-  if(!works.length){wempty.classList.remove('hidden');return;}
-  wempty.classList.add('hidden');
-  works.forEach((w,i)=>{
-    const card=document.createElement('div');
-    card.className='wcard'+(isAdmin?' admin-on':'');
-    card.style.transitionDelay=`${i*.07}s`;
-    const t=thumb(w.url);
-    card.innerHTML=`
-      <div class="wthumb">
-        ${t?`<img src="${t}" alt="${esc(w.title)}" loading="lazy"/>`:`<div class="wthph"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="8" y="12" width="44" height="36" rx="3" stroke="white" stroke-width="1"/><path d="M24 22l16 8-16 8V22z" fill="white"/></svg></div>`}
-        <div class="wplay"><div class="pbtn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3l11 5-11 5V3z" fill="#0B0F1E"/></svg></div></div>
-        ${isAdmin?`<button class="wdel" data-id="${w.id}" title="Delete">✕</button>`:''}
-      </div>
-      <div class="winfo">
-        <div class="wmeta"><span class="wcat">${esc(w.category)}</span><span class="wyr">${esc(w.year)}</span></div>
-        <h3 class="wtit">${esc(w.title)}</h3>
-        ${w.description?`<p class="wdesc">${esc(w.description)}</p>`:''}
-      </div>`;
-    card.addEventListener('click',e=>{
+var _wgrid=document.getElementById('wgrid');
+var _wempty=document.getElementById('wempty');
+function _render(){
+  var works=_load();
+  _wgrid.innerHTML='';
+  if(!works.length){_wempty.classList.remove('hidden');return;}
+  _wempty.classList.add('hidden');
+  works.forEach(function(w,i){
+    var card=document.createElement('div');
+    card.className='wcard'+(_isAdmin?' admin-on':'');
+    card.style.transitionDelay=(i*.07)+'s';
+    var t=_thumb(w.url);
+    card.innerHTML=
+      '<div class="wthumb">'
+      +(t?'<img src="'+t+'" alt="'+_esc(w.title)+'" loading="lazy"/>'
+        :'<div class="wthph"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="8" y="12" width="44" height="36" rx="3" stroke="white" stroke-width="1"/><path d="M24 22l16 8-16 8V22z" fill="white"/></svg></div>')
+      +'<div class="wplay"><div class="pbtn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3l11 5-11 5V3z" fill="#0B0F1E"/></svg></div></div>'
+      +(_isAdmin?'<button class="wdel" data-id="'+w.id+'" title="Delete">&#x2715;</button>':'')
+      +'</div>'
+      +'<div class="winfo">'
+      +'<div class="wmeta"><span class="wcat">'+_esc(w.category)+'</span><span class="wyr">'+_esc(w.year)+'</span></div>'
+      +'<h3 class="wtit">'+_esc(w.title)+'</h3>'
+      +(w.description?'<p class="wdesc">'+_esc(w.description)+'</p>':'')
+      +'</div>';
+    card.addEventListener('click',function(e){
       if(e.target.closest('.wdel'))return;
-      openM(w);
+      _openM(w);
     });
-    wgrid.appendChild(card);
-    const co=new IntersectionObserver(entries=>{
-      entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');co.unobserve(en.target)}});
+    _wgrid.appendChild(card);
+    var co=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('vis');co.unobserve(en.target);}});
     },{threshold:.08});
     co.observe(card);
   });
-  if(isAdmin){
-    wgrid.querySelectorAll('.wdel').forEach(b=>b.addEventListener('click',()=>{
-      const updated=load().filter(x=>x.id!==b.dataset.id);
-      save(updated);render();
-    }));
+  if(_isAdmin){
+    _wgrid.querySelectorAll('.wdel').forEach(function(b){
+      b.addEventListener('click',function(){
+        var updated=_load().filter(function(x){return x.id!==b.dataset.id;});
+        _save(updated);_render();
+      });
+    });
   }
 }
-
-/* modal */
-const modal=document.getElementById('modal');
-const mov=document.getElementById('mov');
-const mcls=document.getElementById('mcls');
-const mvw=document.getElementById('mvw');
-function openM(w){
-  const eu=embedUrl(w.url);
-  mvw.innerHTML=eu?`<iframe src="${eu}" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.3);font-size:.85rem">No video URL</div>`;
+/* MODAL */
+var _modal=document.getElementById('modal');
+var _mov=document.getElementById('mov');
+var _mcls=document.getElementById('mcls');
+var _mvw=document.getElementById('mvw');
+function _openM(w){
+  var eu=_embedUrl(w.url);
+  _mvw.innerHTML=_buildPlayer(eu,w.title);
   document.getElementById('mcat').textContent=w.category||'';
   document.getElementById('mtit').textContent=w.title||'';
   document.getElementById('mdesc').textContent=w.description||'';
   document.getElementById('myr').textContent=w.year||'';
-  modal.classList.remove('hidden');
+  _modal.classList.remove('hidden');
   document.body.style.overflow='hidden';
 }
-function closeM(){modal.classList.add('hidden');mvw.innerHTML='';document.body.style.overflow='';}
-mcls.addEventListener('click',closeM);
-mov.addEventListener('click',closeM);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
-
-/* admin — password gated */
-const apanel=document.getElementById('apanel');
-const afw=document.getElementById('afw');
-const adminLogin=document.getElementById('adminLogin');
-const alBtn=document.getElementById('alBtn');
-const alPw=document.getElementById('alPw');
-const alErr=document.getElementById('alErr');
-const alCnl=document.getElementById('alCnl');
-
-// ── SET YOUR ADMIN PASSWORD HERE ──────────────────────────────────────────
-// SHA-256 hash of your password (default: "e27f0rx")
-// To change: go to https://emn178.github.io/online-tools/sha256.html
-// type your new password, copy the hash, paste it below.
-const PW_HASH='8f204a1eeffc1eda92ea9d1861c24aef2e46f31df328e7d91933f7561d30087b';
-// ─────────────────────────────────────────────────────────────────────────
-
-async function sha256(str){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+function _closeM(){_modal.classList.add('hidden');_mvw.innerHTML='';document.body.style.overflow='';}
+_mcls.addEventListener('click',_closeM);
+_mov.addEventListener('click',_closeM);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')_closeM();});
+/* ADMIN — PASSWORD GATED */
+var _apanel=document.getElementById('apanel');
+var _adminLogin=document.getElementById('adminLogin');
+var _alBtn=document.getElementById('alBtn');
+var _alPw=document.getElementById('alPw');
+var _alErr=document.getElementById('alErr');
+var _alCnl=document.getElementById('alCnl');
+// Password hash (SHA-256). Default password: e27f0rx
+// To change: https://emn178.github.io/online-tools/sha256.html → paste new hash below
+var _PH='8f204a1eeffc1eda92ea9d1861c24aef2e46f31df328e7d91933f7561d30087b';
+async function _sha256(s){
+  var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');
 }
-
-function showAdmin(){
-  isAdmin=true;
-  sessionStorage.setItem('adm','1');
-  apanel.classList.remove('hidden');
-  adminLogin.classList.add('hidden');
-  alPw.value='';alErr.textContent='';
-  document.body.style.overflow='';
-  render();
+function _showAdmin(){
+  _isAdmin=true;sessionStorage.setItem('_adm_','1');
+  _apanel.classList.remove('hidden');_adminLogin.classList.add('hidden');
+  _alPw.value='';_alErr.textContent='';document.body.style.overflow='';
+  _render();
   document.getElementById('works').scrollIntoView({behavior:'smooth'});
 }
-function hideAdmin(){
-  isAdmin=false;
-  sessionStorage.removeItem('adm');
-  apanel.classList.add('hidden');
-  adminLogin.classList.add('hidden');
-  alPw.value='';alErr.textContent='';
-  document.body.style.overflow='';
+function _hideAdmin(){
+  _isAdmin=false;sessionStorage.removeItem('_adm_');
+  _apanel.classList.add('hidden');_adminLogin.classList.add('hidden');
+  _alPw.value='';_alErr.textContent='';document.body.style.overflow='';
   if(history.replaceState)history.replaceState(null,'',location.pathname+location.search);
-  render();
+  _render();
 }
-
-function checkAdmin(){
+function _checkAdmin(){
   if(location.hash==='#admin'){
-    if(sessionStorage.getItem('adm')==='1'){showAdmin();return;}
-    adminLogin.classList.remove('hidden');
+    if(sessionStorage.getItem('_adm_')==='1'){_showAdmin();return;}
+    _adminLogin.classList.remove('hidden');
     document.body.style.overflow='hidden';
-    setTimeout(()=>alPw.focus(),100);
-  } else {
-    hideAdmin();
-  }
+    setTimeout(function(){_alPw.focus();},100);
+  } else {_hideAdmin();}
 }
-
-alBtn.addEventListener('click',async()=>{
-  const h=await sha256(alPw.value);
-  if(h===PW_HASH){showAdmin();}
-  else{alErr.textContent='Incorrect password.';alPw.classList.add('sherr');alPw.value='';setTimeout(()=>alPw.classList.remove('sherr'),600);}
+_alBtn.addEventListener('click',async function(){
+  var h=await _sha256(_alPw.value);
+  if(h===_PH){_showAdmin();}
+  else{_alErr.textContent='Incorrect password.';_alPw.classList.add('sherr');_alPw.value='';setTimeout(function(){_alPw.classList.remove('sherr');},600);}
 });
-alPw.addEventListener('keydown',e=>{if(e.key==='Enter')alBtn.click();});
-alCnl.addEventListener('click',()=>{
+_alPw.addEventListener('keydown',function(e){if(e.key==='Enter')_alBtn.click();});
+_alCnl.addEventListener('click',function(){
   if(history.replaceState)history.replaceState(null,'',location.pathname+location.search);
-  hideAdmin();
+  _hideAdmin();
 });
-
-window.addEventListener('hashchange',checkAdmin);
-
-document.getElementById('addWBtn').addEventListener('click',()=>{
-  const t=document.getElementById('wTitle').value.trim();
-  const c=document.getElementById('wCat').value;
-  const u=document.getElementById('wUrl').value.trim();
-  const d=document.getElementById('wDesc').value.trim();
-  const y=document.getElementById('wYr').value.trim();
+window.addEventListener('hashchange',_checkAdmin);
+/* ADD WORK */
+document.getElementById('addWBtn').addEventListener('click',function(){
+  var t=document.getElementById('wTitle').value.trim();
+  var c=document.getElementById('wCat').value.trim();
+  var u=document.getElementById('wUrl').value.trim();
+  var d=document.getElementById('wDesc').value.trim();
+  var y=document.getElementById('wYr').value.trim();
   if(!t){alert('Please enter a project title.');return;}
-  const works=load();
-  works.push({id:'w'+Date.now(),title:t,category:c,url:u,description:d,year:y});
-  save(works);
-  ['wTitle','wUrl','wDesc','wYr'].forEach(id=>document.getElementById(id).value='');
-  render();
+  var works=_load();
+  works.push({id:'w'+Date.now(),title:t,category:c||'',url:u,description:d,year:y});
+  _save(works);
+  ['wTitle','wCat','wUrl','wDesc','wYr'].forEach(function(id){document.getElementById(id).value='';});
+  _render();
 });
-
-document.getElementById('expBtn').addEventListener('click',()=>{
-  const b=new Blob([JSON.stringify(load(),null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='works-data.json';a.click();
+/* EXPORT / IMPORT */
+document.getElementById('expBtn').addEventListener('click',function(){
+  var b=new Blob([JSON.stringify(_load(),null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='works.json';a.click();
 });
-
-const impBtn=document.getElementById('impBtn');
-const impFile=document.getElementById('impFile');
-impBtn.addEventListener('click',()=>impFile.click());
-impFile.addEventListener('change',e=>{
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){save(d);render();alert('Works imported!');}}catch{alert('Invalid JSON.');}};
-  r.readAsText(f);impFile.value='';
+var _impBtn=document.getElementById('impBtn');
+var _impFile=document.getElementById('impFile');
+_impBtn.addEventListener('click',function(){_impFile.click();});
+_impFile.addEventListener('change',function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{var d=JSON.parse(ev.target.result);if(Array.isArray(d)){_save(d);_render();alert('Works imported!');}}
+    catch(e){alert('Invalid JSON.');}
+  };
+  r.readAsText(f);_impFile.value='';
 });
-
-/* ── CONTACT FORM ── */
-const cform=document.getElementById('cform');
-const sbtn=document.getElementById('sbtn');
-const fstat=document.getElementById('fstat');
-
-function clrErr(){
-  ['fn','fe','fm'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('err');});
-  ['fne','fee','fme'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
+/* CONTACT FORM */
+var _cform=document.getElementById('cform');
+var _sbtn=document.getElementById('sbtn');
+var _fstat=document.getElementById('fstat');
+function _clrErr(){
+  ['fn','fe','fm'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('err');});
+  ['fne','fee','fme'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='';});
 }
-function setErr(fid,eid,msg){
-  const el=document.getElementById(fid);if(el)el.classList.add('err');
-  const em=document.getElementById(eid);if(em)em.textContent=msg;
+function _setErr(fid,eid,msg){
+  var el=document.getElementById(fid);if(el)el.classList.add('err');
+  var em=document.getElementById(eid);if(em)em.textContent=msg;
 }
-
-cform.addEventListener('submit',async e=>{
-  e.preventDefault();clrErr();
-  const name=document.getElementById('fn').value.trim();
-  const email=document.getElementById('fe').value.trim();
-  const msg=document.getElementById('fm').value.trim();
-  let ok=true;
-  if(!name){setErr('fn','fne','Please enter your full name.');ok=false;}
-  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setErr('fe','fee','Please enter a valid email address.');ok=false;}
-  if(!msg||msg.length<10){setErr('fm','fme','Message must be at least 10 characters.');ok=false;}
+_cform.addEventListener('submit',async function(e){
+  e.preventDefault();_clrErr();
+  var name=document.getElementById('fn').value.trim();
+  var email=document.getElementById('fe').value.trim();
+  var msg=document.getElementById('fm').value.trim();
+  var ok=true;
+  if(!name){_setErr('fn','fne','Please enter your full name.');ok=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){_setErr('fe','fee','Please enter a valid email address.');ok=false;}
+  if(!msg||msg.length<10){_setErr('fm','fme','Message must be at least 10 characters.');ok=false;}
   if(!ok)return;
-
-  sbtn.disabled=true;
-  sbtn.querySelector('.bt').textContent='Sending…';
-  fstat.textContent='';fstat.className='fstat';
-
-  // Formspree integration — replace YOUR_FORMSPREE_ID with your actual ID
-  // Get yours free at formspree.io (set recipient = robbcenan082708@gmail.com)
-  const FID='mgoqdweb';
-
-  if(FID==='YOUR_FORMSPREE_ID'){
-    const s=encodeURIComponent(`Portfolio Inquiry from ${name}`);
-    const b=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
-    window.open(`mailto:robbcenan082708@gmail.com?subject=${s}&body=${b}`,'_blank');
-    fstat.textContent="Your email client opened with a pre-filled message. Please hit send!";
-    fstat.className='fstat ok';
-    cform.reset();
-  }else{
-    try{
-      const res=await fetch(`https://formspree.io/f/${FID}`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({name,email,message:msg,_replyto:email})
-      });
-      if(res.ok){
-        fstat.textContent="Message sent! I'll get back to you soon.";
-        fstat.className='fstat ok';
-        cform.reset();
-      }else throw new Error();
-    }catch{
-      fstat.textContent='Something went wrong. Please try again.';
-      fstat.className='fstat bad';
-    }
+  _sbtn.disabled=true;
+  _sbtn.querySelector('.bt').textContent='Sending…';
+  _fstat.textContent='';_fstat.className='fstat';
+  var _FID='mgoqdweb';
+  try{
+    var res=await fetch('https://formspree.io/f/'+_FID,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:name,email:email,message:msg,_replyto:email})
+    });
+    if(res.ok){
+      _fstat.textContent="Message sent! I’ll get back to you soon.";
+      _fstat.className='fstat ok';_cform.reset();
+    }else throw new Error();
+  }catch(e){
+    _fstat.textContent='Something went wrong. Please try again.';
+    _fstat.className='fstat bad';
   }
-  sbtn.disabled=false;
-  sbtn.querySelector('.bt').textContent='Send Message';
+  _sbtn.disabled=false;
+  _sbtn.querySelector('.bt').textContent='Send Message';
 });
-
-afw&&afw.addEventListener('click',()=>{location.hash='#admin';});
-
-/* ── INIT ── */
-checkAdmin();
+/* INIT */
+_checkAdmin();
 })();
 </script>
 </body>
