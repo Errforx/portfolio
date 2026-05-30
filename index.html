@@ -155,11 +155,30 @@ section+section{border-top:1px solid var(--border)}
 .apic{display:flex;flex-direction:column;gap:1.5rem}
 .pframe{
   aspect-ratio:3/4;max-height:500px;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:4px;overflow:hidden;position:relative;
+  background:transparent;border:none;
+  border-radius:0;overflow:hidden;position:relative;
   display:flex;align-items:center;justify-content:center;
 }
-.pframe::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(200,169,110,.07) 0%,transparent 60%)}
+/* Cinematic blending: dark vignette fades photo into site bg */
+.pframe::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to bottom, var(--bg) 0%, transparent 18%, transparent 72%, var(--bg) 100%),
+    linear-gradient(to right,  var(--bg) 0%, transparent 22%, transparent 78%, var(--bg) 100%);
+  pointer-events:none;
+}
+/* Subtle gold colour wash blended on top */
+.pframe::after{
+  content:'';position:absolute;inset:0;z-index:2;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,110,.06) 0%, transparent 70%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.pframe img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:grayscale(28%) contrast(1.06) brightness(0.88);
+  display:block;
+}
 .pfph{display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:.22;color:var(--ow)}
 .pfph svg{width:80px;height:80px}
 .pfph span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase}
@@ -328,6 +347,37 @@ section+section{border-top:1px solid var(--border)}
 .flo{font-family:var(--serif);font-size:1.05rem;letter-spacing:.14em;color:var(--muted)}
 .fcp,.fmade{font-size:.72rem;color:var(--muted);letter-spacing:.07em}
 
+/* ── ADMIN LOGIN MODAL ── */
+#adminLogin{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+#adminLogin.hidden{display:none}
+.alov{position:absolute;inset:0;background:rgba(5,8,18,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.albox{
+  position:relative;z-index:1;background:var(--card);
+  border:1px solid rgba(200,169,110,.18);border-radius:8px;
+  padding:2.5rem 2.5rem 2rem;width:100%;max-width:360px;
+  animation:min .4s var(--ease);text-align:center;
+}
+.albox h3{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--w);margin-bottom:.4rem}
+.albox p{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem}
+.albox input{
+  width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:4px;color:var(--ow);font-family:var(--sans);font-size:.95rem;
+  padding:.82rem 1rem;outline:none;text-align:center;letter-spacing:.25em;
+  transition:border-color .3s;margin-bottom:.8rem;
+}
+.albox input:focus{border-color:rgba(200,169,110,.45)}
+.albox input.sherr{border-color:rgba(220,80,80,.55)}
+.alerr{font-size:.72rem;color:rgba(220,100,100,.85);min-height:1.1em;margin-bottom:.8rem;display:block}
+.albtn{
+  width:100%;padding:.85rem;border-radius:100px;
+  background:var(--gold);color:var(--bg);
+  font-family:var(--sans);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+  border:none;transition:background .3s,transform .3s var(--ease);
+}
+.albtn:hover{background:#d4b47a;transform:translateY(-1px)}
+.alcnl{display:block;margin-top:1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+.alcnl:hover{color:var(--w)}
+
 /* ── REVEAL ── */
 .ru,.rl,.rr{opacity:0;transition:opacity .85s var(--ease),transform .85s var(--ease)}
 .ru{transform:translateY(36px)}
@@ -485,6 +535,19 @@ section+section{border-top:1px solid var(--border)}
     <p>No projects yet. <span class="afw" id="afw">Add your first work →</span></p>
   </div>
 </section>
+
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminLogin" class="hidden">
+  <div class="alov"></div>
+  <div class="albox">
+    <h3>Admin Access</h3>
+    <p>Enter password to manage works</p>
+    <input type="password" id="alPw" placeholder="••••••••" autocomplete="current-password"/>
+    <span class="alerr" id="alErr"></span>
+    <button class="albtn" id="alBtn">Unlock</button>
+    <a class="alcnl" id="alCnl">Cancel</a>
+  </div>
+</div>
 
 <!-- VIDEO MODAL -->
 <div id="modal" class="hidden">
@@ -703,16 +766,71 @@ mcls.addEventListener('click',closeM);
 mov.addEventListener('click',closeM);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
 
-/* admin */
+/* admin — password gated */
 const apanel=document.getElementById('apanel');
 const afw=document.getElementById('afw');
-function checkAdmin(){
-  isAdmin=location.hash==='#admin';
-  isAdmin?apanel.classList.remove('hidden'):apanel.classList.add('hidden');
+const adminLogin=document.getElementById('adminLogin');
+const alBtn=document.getElementById('alBtn');
+const alPw=document.getElementById('alPw');
+const alErr=document.getElementById('alErr');
+const alCnl=document.getElementById('alCnl');
+
+// ── SET YOUR ADMIN PASSWORD HERE ──────────────────────────────────────────
+// SHA-256 hash of your password (default: "e27f0rx")
+// To change: go to https://emn178.github.io/online-tools/sha256.html
+// type your new password, copy the hash, paste it below.
+const PW_HASH='8f204a1eeffc1eda92ea9d1861c24aef2e46f31df328e7d91933f7561d30087b';
+// ─────────────────────────────────────────────────────────────────────────
+
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function showAdmin(){
+  isAdmin=true;
+  sessionStorage.setItem('adm','1');
+  apanel.classList.remove('hidden');
+  adminLogin.classList.add('hidden');
+  alPw.value='';alErr.textContent='';
+  document.body.style.overflow='';
+  render();
+  document.getElementById('works').scrollIntoView({behavior:'smooth'});
+}
+function hideAdmin(){
+  isAdmin=false;
+  sessionStorage.removeItem('adm');
+  apanel.classList.add('hidden');
+  adminLogin.classList.add('hidden');
+  alPw.value='';alErr.textContent='';
+  document.body.style.overflow='';
+  if(history.replaceState)history.replaceState(null,'',location.pathname+location.search);
   render();
 }
+
+function checkAdmin(){
+  if(location.hash==='#admin'){
+    if(sessionStorage.getItem('adm')==='1'){showAdmin();return;}
+    adminLogin.classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>alPw.focus(),100);
+  } else {
+    hideAdmin();
+  }
+}
+
+alBtn.addEventListener('click',async()=>{
+  const h=await sha256(alPw.value);
+  if(h===PW_HASH){showAdmin();}
+  else{alErr.textContent='Incorrect password.';alPw.classList.add('sherr');alPw.value='';setTimeout(()=>alPw.classList.remove('sherr'),600);}
+});
+alPw.addEventListener('keydown',e=>{if(e.key==='Enter')alBtn.click();});
+alCnl.addEventListener('click',()=>{
+  if(history.replaceState)history.replaceState(null,'',location.pathname+location.search);
+  hideAdmin();
+});
+
 window.addEventListener('hashchange',checkAdmin);
-afw&&afw.addEventListener('click',()=>{location.hash='#admin';document.getElementById('works').scrollIntoView({behavior:'smooth'});});
 
 document.getElementById('addWBtn').addEventListener('click',()=>{
   const t=document.getElementById('wTitle').value.trim();
@@ -776,7 +894,7 @@ cform.addEventListener('submit',async e=>{
   // Get yours free at formspree.io (set recipient = robbcenan082708@gmail.com)
   const FID='mgoqdweb';
 
-  if(FID==='mgoqdweb'){
+  if(FID==='YOUR_FORMSPREE_ID'){
     const s=encodeURIComponent(`Portfolio Inquiry from ${name}`);
     const b=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
     window.open(`mailto:robbcenan082708@gmail.com?subject=${s}&body=${b}`,'_blank');
@@ -803,6 +921,8 @@ cform.addEventListener('submit',async e=>{
   sbtn.disabled=false;
   sbtn.querySelector('.bt').textContent='Send Message';
 });
+
+afw&&afw.addEventListener('click',()=>{location.hash='#admin';});
 
 /* ── INIT ── */
 checkAdmin();
