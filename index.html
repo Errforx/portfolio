@@ -181,7 +181,7 @@ section+section{border-top:1px solid var(--border)}
 .wcard.vis{opacity:1;transform:none}
 .wcard:hover{transform:translateY(-5px);border-color:rgba(200,169,110,.22);box-shadow:0 20px 55px rgba(0,0,0,.45)}
 .wthumb{position:relative;aspect-ratio:16/9;background:#0a0e1c;overflow:hidden}
-.wthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78;transition:opacity .4s,transform .6s var(--ease)}
+.wthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;transition:opacity .4s,transform .6s var(--ease)}
 .wcard:hover .wthumb img{opacity:.92;transform:scale(1.03)}
 .wthph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0d1a,#111626)}
 .wthph svg{opacity:.12}
@@ -376,7 +376,7 @@ section+section{border-top:1px solid var(--border)}
       View My Work
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div><div class="hscr"><span>Scroll</span><div class="sline"></div></div>
 </section><section id="about"><div class="slabel rl">01 — About</div><div class="alay"><div class="apic rl"><div class="pframe"><img src="hatdog.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/></div><div class="tags"><span class="tag">3+ Years</span><span class="tag">Of</span><span class="tag">Experience</span></div></div><div class="rr"><h2 class="stit">The Editor<br/><em>Behind the Frame</em></h2><p class="alead">I'm Robb — known online as <strong>e27f0rx</strong> — a video editor based in the Philippines.</p><p class="abody">With 3+ years of dedicated editing experience, I've developed a cinematic sensibility across multiple formats and genres. My work spans high-impact trailers, immersive documentary-style pieces, punchy short-form content, and deeply narrative long-form edits.</p><p class="abody">Every cut is intentional. Every transition is felt. I believe editing isn't just assembly — it's the invisible art that makes an audience <em>feel.</em></p><div class="aspecs"><div class="spec"><span class="sico">▸</span> Motion Graphics</div><div class="spec"><span class="sico">▸</span> Documentary-style</div><div class="spec"><span class="sico">▸</span> Short-form Content</div><div class="spec"><span class="sico">▸</span> Long-form Content</div><div class="spec"><span class="sico">▸</span> Short Film</div></div></div></div>
-</section><section id="works"><div class="slabel rl">02 — Works</div><div id="apanel" class="apanel hidden"><div class="apinn"><h3>Manage Works <span class="abadge">Admin Only</span></h3><div class="frow"><input type="text" id="wTitle" placeholder="Project Title" class="ain"/><input type="text" id="wCat" placeholder="Category (e.g. Trailer, Documentary…)" class="ain"/></div><div class="frow"><input type="text" id="wUrl" placeholder="YouTube / Vimeo / TikTok URL" class="ain"/></div><div class="frow"><input type="text" id="wDesc" placeholder="Brief description (optional)" class="ain"/><input type="text" id="wYr" placeholder="Year" class="ain sh"/></div><div class="aacts"><button class="abtn" id="addWBtn">+ Add Project</button><button class="abtn sec" id="expBtn">Export JSON</button><button class="abtn sec" id="impBtn">Import JSON</button><input type="file" id="impFile" accept=".json" style="display:none"/></div></div></div><div class="whead ru"><h2 class="stit">Selected<br/><em>Projects</em></h2><p class="wsub">A curated showcase of edits across formats and genres.</p></div><div class="wgrid" id="wgrid"></div><div class="wempty hidden" id="wempty"><p>No projects yet.</p></div>
+</section><section id="works"><div class="slabel rl">02 — Works</div><div id="apanel" class="apanel hidden"><div class="apinn"><h3>Manage Works <span class="abadge">Admin Only</span></h3><div class="frow"><input type="text" id="wTitle" placeholder="Project Title" class="ain"/><input type="text" id="wCat" placeholder="Category (e.g. Trailer, Documentary…)" class="ain"/></div><div class="frow"><input type="text" id="wUrl" placeholder="YouTube / Vimeo / Google Drive / any video URL" class="ain"/></div><div class="frow"><input type="text" id="wThumb" placeholder="Custom thumbnail URL (optional — auto-detected for YouTube/Vimeo)" class="ain"/></div><div class="frow"><input type="text" id="wDesc" placeholder="Brief description (optional)" class="ain"/><input type="text" id="wYr" placeholder="Year" class="ain sh"/></div><div class="aacts"><button class="abtn" id="addWBtn">+ Add Project</button><button class="abtn sec" id="expBtn">Export JSON</button><button class="abtn sec" id="impBtn">Import JSON</button><input type="file" id="impFile" accept=".json" style="display:none"/></div></div></div><div class="whead ru"><h2 class="stit">Selected<br/><em>Projects</em></h2><p class="wsub">A curated showcase of edits across formats and genres.</p></div><div class="wgrid" id="wgrid"></div><div class="wempty hidden" id="wempty"><p>No projects yet.</p></div>
 </section><div id="adminLogin" class="hidden"><div class="alov"></div><div class="albox"><h3>Admin Access</h3><p>Enter password to manage works</p><input type="password" id="alPw" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="current-password"/><span class="alerr" id="alErr"></span><button class="albtn" id="alBtn">Unlock</button><span class="alcnl" id="alCnl">Cancel</span></div>
 </div><div id="modal" class="hidden"><div class="mov" id="mov"></div><div class="mcon"><button class="mcls" id="mcls">✕</button><div class="mvw" id="mvw"></div><div class="minf"><span class="mcat" id="mcat"></span><h3 class="mtit" id="mtit"></h3><p class="mdesc" id="mdesc"></p><span class="myr" id="myr"></span></div></div>
 </div><section id="contact"><div class="slabel rl">03 — Contact</div><div class="clay"><div class="rl"><h2 class="stit">Let's Make<br/><em>Something</em><br/>Together.</h2><p class="csub">Have a project in mind? Let's talk about it.</p><div class="cinfo"><a href="https://www.youtube.com/@e27f0rx" target="_blank" rel="noopener noreferrer" class="csoc">YouTube</a><a href="https://x.com/e27f0rx" class="csoc">X</a></div></div><div class="rr"><form id="cform" class="cform" novalidate><div class="fg"><label for="fn">Full Name</label><input type="text" id="fn" name="name" placeholder="Your full name" required autocomplete="name"/><span class="ferr" id="fne"></span></div><div class="fg"><label for="fe">Email Address</label><input type="email" id="fe" name="email" placeholder="your@email.com" required autocomplete="email"/><span class="ferr" id="fee"></span></div><div class="fg"><label for="fm">Message</label><textarea id="fm" name="message" rows="5" placeholder="Tell me about your project..." required></textarea><span class="ferr" id="fme"></span></div><button type="submit" class="sbtn" id="sbtn"><span class="bt">Send Message</span><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1.5 7.5l12-5-5 11.5-2-4.5-5-2z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg></button><div class="fstat" id="fstat"></div></form></div></div>
@@ -488,12 +488,21 @@ function _buildPlayer(eu,title){
   var sb=isDrive?'sandbox="allow-scripts allow-same-origin allow-forms allow-popups"':'';
   return'<iframe src="'+eu+'" '+sb+' allow="autoplay;fullscreen;picture-in-picture;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>';
 }
-function _thumb(url){
-  if(!url)return null;
+function _thumb(videoUrl,customThumb){
+  // Custom thumbnail always wins
+  if(customThumb&&customThumb.trim())return customThumb.trim();
+  if(!videoUrl)return null;
+  var url=videoUrl.trim();
+  // YouTube — hqdefault is more reliable than mqdefault
   var yt=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if(yt)return'https://img.youtube.com/vi/'+yt[1]+'/mqdefault.jpg';
+  if(yt)return'https://img.youtube.com/vi/'+yt[1]+'/hqdefault.jpg';
+  // Vimeo via vumbnail proxy
   var vm=url.match(/vimeo\.com\/(?:video\/)?([0-9]+)/);
   if(vm)return'https://vumbnail.com/'+vm[1]+'.jpg';
+  // Dailymotion
+  var dm=url.match(/dailymotion\.com\/video\/([A-Za-z0-9]+)/);
+  if(dm)return'https://www.dailymotion.com/thumbnail/video/'+dm[1];
+  // Streamable — no public thumb API without token, skip
   return null;
 }
 function _esc(s){
@@ -511,10 +520,10 @@ function _render(){
     var card=document.createElement('div');
     card.className='wcard'+(_isAdmin?' admin-on':'');
     card.style.transitionDelay=(i*.07)+'s';
-    var t=_thumb(w.url);
+    var t=_thumb(w.url,w.thumb);
     card.innerHTML=
       '<div class="wthumb">'
-      +(t?'<img src="'+t+'" alt="'+_esc(w.title)+'" loading="lazy"/>'
+      +(t?'<img src="'+t+'" alt="'+_esc(w.title)+'" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;transition:opacity .4s,transform .6s" onerror="this.style.display='none'"/>'
         :'<div class="wthph"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="8" y="12" width="44" height="36" rx="3" stroke="white" stroke-width="1"/><path d="M24 22l16 8-16 8V22z" fill="white"/></svg></div>')
       +'<div class="wplay"><div class="pbtn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3l11 5-11 5V3z" fill="#0B0F1E"/></svg></div></div>'
       +(_isAdmin?'<button class="wdel" data-id="'+w.id+'" title="Delete">&#x2715;</button>':'')
@@ -614,13 +623,14 @@ document.getElementById('addWBtn').addEventListener('click',function(){
   var t=document.getElementById('wTitle').value.trim();
   var c=document.getElementById('wCat').value.trim();
   var u=document.getElementById('wUrl').value.trim();
+  var th=document.getElementById('wThumb').value.trim();
   var d=document.getElementById('wDesc').value.trim();
   var y=document.getElementById('wYr').value.trim();
   if(!t){alert('Please enter a project title.');return;}
   var works=_load();
-  works.push({id:'w'+Date.now(),title:t,category:c||'',url:u,description:d,year:y});
+  works.push({id:'w'+Date.now(),title:t,category:c||'',url:u,thumb:th,description:d,year:y});
   _save(works);
-  ['wTitle','wCat','wUrl','wDesc','wYr'].forEach(function(id){document.getElementById(id).value='';});
+  ['wTitle','wCat','wUrl','wThumb','wDesc','wYr'].forEach(function(id){document.getElementById(id).value='';});
   _render();
 });
 /* EXPORT / IMPORT */
